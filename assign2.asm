@@ -50,7 +50,7 @@ skip:mov [rdi],al
     mov rax, 1
     mov rdi, 1
     mov rsi, msgop
-    mov rdx, msgoplen
+    mov rdx, msgopl en
     syscall
         
     mov rax,60
