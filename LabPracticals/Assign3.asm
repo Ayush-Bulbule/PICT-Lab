@@ -1,3 +1,5 @@
+;To display greatest number from given array element
+
 section .data
 msg db "Enter 5 numbers to find maximum:" ,0xA
 len1 equ $-msg
@@ -5,12 +7,18 @@ len1 equ $-msg
 msg1 db "Maximum number in the array is:" ,0xA
 len2 equ $-msg1
 
+; Counter for looping
 cnt db 05h
+
+; Initialize 'al' and 'r8' registers to 0
 mov al,00h
 mov r8,00h
+
+; Array containing 5 numbers
 num dq 10h,02h,03h,04h,05h
 
 %macro print 2
+; Display message
 mov rax,01
 mov rdi,01
 mov rsi,%1
@@ -19,29 +27,29 @@ syscall
 %endmacro
 
 section .bss
+; Buffer to store the maximum number in the array
 larg resb 16
 
 section .text
 global _start
 _start:
 
-
-
+; Loop through the array to find the maximum number
 find_max:
 mov byte[cnt],05h
 mov r8,num
 mov al,00h
-l3:
+loop_start:
 cmp al,byte[r8]
-ja l4
+ja loop_end
 mov al,byte[r8]
-l4:
+loop_end:
 inc r8
 dec byte[cnt]
-jnz l3
+jnz loop_start
 
-hexAscii:
-;mov bl,al
+; Convert the maximum number to ASCII and store it in 'larg' buffer
+hex_to_ascii:
 mov rbp,larg
 mov byte[cnt],02h
 up:
@@ -58,9 +66,11 @@ inc rbp
 dec byte[cnt]
 jnz up
 
+; Display the maximum number in the array
 print msg1,len2
 print larg,2
 
-mov rax,60	; exit system call
+; Exit program
+mov rax,60
 mov rdi,00
 syscall
