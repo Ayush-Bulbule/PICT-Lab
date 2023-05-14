@@ -1,144 +1,220 @@
-%macro scall 4
-        mov rax,%1
-        mov rdi,%2
-        mov rsi,%3
-        mov rdx,%4
-        syscall
-%endmacro
+; Write X86/64 ALP to convert 4-digit Hex number into its equivalent BCD number and 5-digit BCD number into its equivalent HEX number.
+; Make your program user friendly to accept the choice from user for: (a) HEX to BCD b) BCD to HEX (c) EXIT. Display proper strings to
+; prompt the user while accepting the input and displaying the result. (wherever necessary, use 64-bit registers)
+
 
 section .data
-        menu db 10d,13d,"MENU"
-             db 10d,"1. Hex to BCD"
-             db 10d,"2. BCD to Hex"
-             db 10d,"3. Exit"
-             db 10d,"Enter your choice: "
-        menulen equ $-menu
-        
-        m1 db 10d,13d,"Enter Hex Number: "
-        l1 equ $-m1
-        
-        m2 db 10d,13d,"Enter BCD Number: "
-        l2 equ $-m2
-        
-        m3 db 10d,13d,"Equivalent BCD Number: "
-        l3 equ $-m3
-        
-        m4 db 10d,13d,"Equivalent Hex Number: "
-        l4 equ $-m4
-        
+    msg : db "1.HEX to BCD ", 0x0A
+          db "2.BCD to HEX ", 0x0A
+          db "3.Exit",0x0A
+    len: equ $-msg
+    msg1: db "Enter your Choice : "
+    len1: equ $-msg1
+    msg2: db "Enter HEX number : "
+    len2: equ $-msg2
+    msg3: db "Enter BCD number : "
+    len3: equ $-msg3
+    msg4: db "Equivalent BCD number is : "
+    len4: equ $-msg4
+ 
+    msg5: db "Equivalent HEX number is : "
+    len5: equ $-msg5
+    m: db " ",0x0A
+    l: equ $-m
 section .bss
-        choice resb 1
-        num resb 16
-        answer resb 16
-        factor resb 16
-        
-section .text
-        global _start
+ 
+    num: resb 6
+    result: resb 4
+    ans : resb 4
+    digitcount : resb 01
+    choice : resb 02
+ 
+section .txt
+global _start
 _start:
-        scall 1,1,menu,menulen
-        scall 0,0,choice,2
-        
-        cmp byte[choice],'3'
-        jae exit
-        
-        cmp byte[choice],'1'
-        je hex2bcd
-        
-        cmp byte[choice],'2'
-        je bcd2hex
-        
-;**********Hex to BCD Conversion*************************      
-hex2bcd:
-        scall 1,1,m1,l1
-        scall 0,0,num,17
-        call asciihextohex
-        
-        mov rax,rbx
-	mov rbx,10
-	mov rdi,num+15
-loop3:
-	mov rdx,0
-	div rbx
-	add dl,30h
-	mov [rdi],dl
-	dec rdi
-	cmp rax,0
-	jne loop3
-	             
-        scall 1,1,m3,l3
-        scall 1,1,num,16          
-jmp _start
 
-;**********BCD to Hex Conversion*************************
-bcd2hex:        
-        scall 1,1,m2,l2
-        scall 0,0,num,17  
-                
-        mov rcx,16
-	mov rsi,num+15
-	mov rbx,0
-	mov qword[factor],1
-	
-loop4:
-	mov rax,0	
-	mov al,[rsi]
-        sub al,30h
-	mul qword[factor]
-	add rbx,rax
-	mov rax,10
-	mul qword[factor]
-	mov qword[factor],rax
-	dec rsi
-	loop loop4
+menu:
+    mov rax,1
+    mov rdi,1
+    mov rsi,m                  ;Newline
+    mov rdx,l
+    syscall
+ 
+    mov rax,1
+    mov rdi,1
+    mov rsi,m                  ;Newline
+    mov rdx,l
+    syscall
+ 
+    mov rax,1
+    mov rdi,1
+    mov rsi,msg             
+    mov rdx,len
+    syscall
+ 
+    mov rax,1
+    mov rdi,1
+    mov rsi,msg1
+    mov rdx,len1
+    syscall
+ 
+    mov rax,0
+    mov rdi,0
+    mov rsi,choice
+    mov rdx,02
+    syscall
+ 
+    cmp byte[choice],31H
+    je case1
+ 
+    cmp byte[choice],32H
+    je case2
+ 
+    cmp byte[choice],33H
+    je case3
+ 
+    case3:
+    mov rax,60
+    mov rdi,0
+    syscall
+ 
+case2:
 
-	scall 1,1,m4,l4
-	mov rax,rbx
-	call display            
-jmp _start     
+    mov rax,1
+    mov rdi,1
+    mov rsi,msg3
+    mov rdx,len3
+    syscall
+ 
+ 
+    mov rax,0
+    mov rdi,0
+    mov rsi,num
+    mov rdx,6
+    syscall
+ 
+    xor rax,rax
+    mov rbx,10
+    mov rcx,05
+
+up2: 
+    xor rdx,rdx
+    mul ebx
+    xor rdx,rdx
+    mov dl,[rsi]
+    sub dl,30H
+    add rax,rdx
+    inc rsi
+    dec rcx
+    jnz up2
+ 
+    mov [result],ax
+ 
+    mov rax,1
+    mov rdi,1
+    mov rsi,msg5
+    mov rdx,len5
+    syscall
+ 
+    mov ax,[result]
+    call display
+ 
+    jmp menu
+
+
+ 
+case1:
+ 
+    mov rax,1
+    mov rdi,1
+    mov rsi,msg2
+    mov rdx,len2
+    syscall
+ 
+    call accept
+ 
+    mov ax,bx
+
+    mov rbx,10
+back:
+    xor rdx,rdx
+    div rbx
+
+    push dx
+    inc byte[digitcount]
+
+    cmp rax,0h
+    jne back
+ 
+print:
+    pop dx
+    add dl,30h   
+    mov [result],dl
+
+    mov rax,1
+    mov rdi,1
+    mov rsi,result
+    mov rdx,1
+    syscall
+
+    dec byte[digitcount]
+    jnz print
+ 
+    jmp menu
+ 
+ 
+accept:
+
+    mov rax,0
+    mov rdi,0
+    mov rsi,num
+    mov rdx,5
+    syscall 
+     
+    xor bx,bx
+    mov rcx,4
+    mov rsi,num
+
+next_digit:
+
+    rol bx,04
+    mov al,[rsi]
+    cmp al,39h
+    jbe sub30
+    sub al,7h
+
+sub30:  sub al,30h
    
-exit:   
-        mov rax,60
-        mov rdx,0
-        syscall
-        
-;*********************PROCEDURES*************************
-	
-asciihextohex:
-	mov rsi,num
-	mov rcx,16
-	mov rbx,0
-	mov rax,0
-		
-loop1:	rol rbx,04
-	mov al,[rsi]
-	cmp al,39h
-	jbe skip1
-	sub al,07h
-skip1:	sub al,30h
-	
-	add rbx,rax
-	
-	inc rsi
-	dec rcx
-	jnz loop1	
-ret	
-
-display:
-        mov rsi,answer+15
-        mov rcx,16
-
-loop2:	mov rdx,0
-        mov rbx,16
-        div rbx
-        cmp dl,09h
-        jbe skip2
-        
-        add dl,07h
-skip2:	add dl,30h
-        mov [rsi],dl
-        
-        dec rsi
-        dec rcx
-        jnz loop2
-        scall 1,1,answer,16       
+    add bx,ax   
+    inc rsi   
+    loop next_digit
 ret
+
+ 
+display: 
+    mov rsi,ans+3
+    mov rcx,4
+ 
+count:
+
+    mov rdx,0
+    mov rbx,16
+    div rbx
+    cmp dl,09H
+    jbe skip2
+    add dl,07H
+ 
+skip2:
+    add dl,30H
+    mov [rsi],dl
+    dec rsi
+    dec rcx
+    jnz count
+ 
+    mov rax,1
+    mov rbx,1
+    mov rsi,ans
+    mov rdx,4
+    syscall
+    ret 
+ 
