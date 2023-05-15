@@ -2,7 +2,6 @@
 ; Make your program user friendly to accept the choice from user for: (a) HEX to BCD b) BCD to HEX (c) EXIT. Display proper strings to
 ; prompt the user while accepting the input and displaying the result. (wherever necessary, use 64-bit registers)
 
-
 section .data
     msg : db "1.HEX to BCD ", 0x0A
           db "2.BCD to HEX ", 0x0A
