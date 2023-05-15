@@ -1,83 +1,102 @@
 section .data
-msg1 db "Count of Positive numbers:"
-len1 equ $-msg1
-msg2 db "Count of negative numbers:"
-len2 equ $-msg2
-array db 10,12,-21,-12,-19,-34,41
+    msg1 db "Count of Positive numbers:"
+    len1 equ $-msg1
 
-null db "",0xA
-lenNull equ $-null
+    msg2 db "Count of Negative numbers:"
+    len2 equ $-msg2
+
+    array db 10, 12, -21, -12, -19, -34, 41
+
+    nLine db "", 0xA
+    lenNLine equ $-nLine
 
 %macro print 2
-mov rax,01
-mov rdi,01
-mov rsi,%1
-mov rdx,%2
-syscall
+    mov rax, 01
+    mov rdi, 01
+    mov rsi, %1
+    mov rdx, %2
+    syscall
 %endmacro
 
+%macro newLine 0
+    mov rax, 01
+    mov rdi, 01
+    mov rsi, nLine
+    mov rdx, lenNLine
+    syscall
+%endmacro
 
 section .bss
-count resb 2
-pcount resb 2
-ncount resb 2
-totalcount resb 2
+    count resb 2
+    positiveCount resb 2
+    negativeCount resb 2
+    totalCount resb 2
 
 section .text
 global _start
 _start:
-
-mov byte[count],07
-mov byte[pcount],00
-mov byte[ncount],00
-
-mov rsi,array
+    ; Initialize counters and array pointer
+    mov byte[count], 07
+    mov byte[positiveCount], 00
+    mov byte[negativeCount], 00
+    mov rsi, array
 
 Up:
-        mov al,00
-        add al,[rsi]
-        js neg
-        inc byte[pcount]
-        jmp Down
-        neg:
-        inc byte[ncount]
+    ; Process each element of the array
+    mov al, 00
+    add al, [rsi]
+    js negative
+    inc byte[positiveCount]
+    jmp Down
+negative:
+    inc byte[negativeCount]
 
 Down:
-        add rsi,01
-        dec byte[count]
-        jnz Up
+    ; Move to the next element and decrement the counter
+    add rsi, 01
+    dec byte[count]
+    jnz Up
 
-mov bl,[pcount]
-mov dl,[ncount]
+    ; Print the results
+    mov bl, [positiveCount]
+    mov dl, [negativeCount]
+
 b1:
+    ; Display count of positive numbers
+    print msg1, len1
+    mov bh, [positiveCount]
+    call displayCount
 
-print msg1,len1
-mov bh,[pcount]
-call disp
+    newLine
 
+    ; Display count of negative numbers
+    print msg2, len2
+    mov bh, [negativeCount]
+    call displayCount
+    newLine
 
+    jmp Exit
 
-print msg2,len2
-mov bh,[ncount]
-call disp
-
-mov rax,60
-mov rdi,00
-syscall
-
-disp:
-mov byte[count],02
-
+displayCount:
+    ; Convert the count to ASCII and print it
+    mov byte[count], 02
 loop:
-        rol bh,04
-        mov al,bh
-        AND al,0FH
-        cmp al,09
-        jbe l1
-        add al,07h
-        l1:add al,30h
-        mov[totalcount],al
-        print totalcount,02
-        dec byte[count]
-        jnz loop
-ret
+    rol bh, 04
+    mov al, bh
+    AND al, 0FH
+    cmp al, 09
+    jbe l1
+    add al, 07h
+l1:
+    add al, 30h
+    mov [totalCount], al
+    print totalCount, 02
+    dec byte[count]
+    jnz loop
+    ret
+
+Exit:
+    ; Exit the program
+    mov rax, 60
+    mov rdi, 00
+    syscall

@@ -1,75 +1,104 @@
-;Write X86/64 ALP to five hexadecimal numbers from
-;user andstore them in an array and display the accepted
-;numbers.
+;Display the five 64 bit Hexadecimal numbers from the user 
 
-global _start
 section .data
-msg1 db "Enter 5 NUmbers: ", 0xA
-len1 equ $-msg1
+    msg1 db "Count of Positive numbers:"
+    len1 equ $-msg1
 
-msg2 db "Displaying 5 Numbers: ", 0xA
-len2 equ $-msg1
+    msg2 db "Count of Negative numbers:"
+    len2 equ $-msg2
 
-cnt db 05h
-mov r8, 00h
+    array db 10, 12, -21, -12, -19, -34, 41
+
+    nLine db "", 0xA
+    lenNLine equ $-nLine
+
+%macro print 2
+    mov rax, 01
+    mov rdi, 01
+    mov rsi, %1
+    mov rdx, %2
+    syscall
+%endmacro
+
+%macro newLine 0
+    mov rax, 01
+    mov rdi, 01
+    mov rsi, nLine
+    mov rdx, lenNLine
+    syscall
+%endmacro
 
 section .bss
-    num resb 16
+    count resb 2
+    positiveCount resb 2
+    negativeCount resb 2
+    totalCount resb 2
 
 section .text
-
+global _start
 _start:
-    ;print msg
-    mov rax, 01
-    mov rdi, 01
-    mov rsi, msg1
-    mov rdx, len1
-    syscall
+    ; Initialize counters and array pointer
+    mov byte[count], 07
+    mov byte[positiveCount], 00
+    mov byte[negativeCount], 00
+    mov rsi, array
 
-    ;point r8, to num
+Up:
+    ; Process each element of the array
+    mov al, 00
+    add al, [rsi]
+    js negative
+    inc byte[positiveCount]
+    jmp Down
+negative:
+    inc byte[negativeCount]
 
-    mov r8, num
+Down:
+    ; Move to the next element and decrement the counter
+    add rsi, 01
+    dec byte[count]
+    jnz Up
 
-    ;read data 16bits+1fro enter = 17
-    loop1:
-    mov rax, 00
+    ; Print the results
+    mov bl, [positiveCount]
+    mov dl, [negativeCount]
+
+b1:
+    ; Display count of positive numbers
+    print msg1, len1
+    mov bh, [positiveCount]
+    call displayCount
+
+    newLine
+
+    ; Display count of negative numbers
+    print msg2, len2
+    mov bh, [negativeCount]
+    call displayCount
+    newLine
+
+    jmp Exit
+
+displayCount:
+    ; Convert the count to ASCII and print it
+    mov byte[count], 02
+loop:
+    rol bh, 04
+    mov al, bh
+    AND al, 0FH
+    cmp al, 09
+    jbe l1
+    add al, 07h
+l1:
+    add al, 30h
+    mov [totalCount], al
+    print totalCount, 02
+    dec byte[count]
+    jnz loop
+    ret
+
+Exit:
+    ; Exit the program
+    mov rax, 60
     mov rdi, 00
-    mov rsi, r8
-    mov rdx, 17
     syscall
-
-    add r8, 17; add the vale to r8 to move pointer to next location
-    dec byte[cnt]
-    jnz loop1
-
-    mov rax, 01
-    mov rdi, 01
-    mov rsi, msg2
-    mov rdx, len2 
-    syscall
-
-    mov byte[cnt], 05 ; reinitilize the count with 05
-
-    mov r8, num  ; point to array
-
-    loop2:
-    mov rax, 01
-    mov rdi, 01
-    mov rsi, r8
-    mov rdx, 17
-    syscall
-
-    add r8,17
-    dec byte[cnt]
-    jnz loop2
-
-    mov rax, 60 ;exit
-    mov rdi, 0
-    syscall
-
-
-
-
-
-
-

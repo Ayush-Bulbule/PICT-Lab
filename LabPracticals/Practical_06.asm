@@ -7,22 +7,23 @@ section .data
     msg : db "1.HEX to BCD ", 0x0A
           db "2.BCD to HEX ", 0x0A
           db "3.Exit",0x0A
-    len: equ $-msg
-    msg1: db "Enter your Choice : "
-    len1: equ $-msg1
-    msg2: db "Enter HEX number : "
-    len2: equ $-msg2
-    msg3: db "Enter BCD number : "
-    len3: equ $-msg3
-    msg4: db "Equivalent BCD number is : "
-    len4: equ $-msg4
+    len equ $-msg
+    msg1 db "Enter your Choice : "
+    len1 equ $-msg1
+    msg2 db "Enter HEX number : "
+    len2 equ $-msg2
+    msg3 db "Enter BCD number : "
+    len3 equ $-msg3
+    msg4 db "Equivalent BCD number is : "
+    len4 equ $-msg4
  
     msg5: db "Equivalent HEX number is : "
     len5: equ $-msg5
     m: db " ",0x0A
     l: equ $-m
+
 section .bss
- 
+
     num: resb 6
     result: resb 4
     ans : resb 4
@@ -73,11 +74,7 @@ menu:
     cmp byte[choice],33H
     je case3
  
-    case3:
-    mov rax,60
-    mov rdi,0
-    syscall
- 
+    
 case2:
 
     mov rax,1
@@ -120,11 +117,8 @@ up2:
     call display
  
     jmp menu
-
-
  
-case1:
- 
+case1: 
     mov rax,1
     mov rdi,1
     mov rsi,msg2
@@ -217,4 +211,11 @@ skip2:
     mov rdx,4
     syscall
     ret 
+ 
+
+
+ case3:
+    mov rax,60
+    mov rdi,0
+    syscall
  
