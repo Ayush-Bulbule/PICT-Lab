@@ -17,13 +17,13 @@ mov r8,00h
 ; Array containing 5 numbers
 num dq 10h,02h,03h,04h,05h
 
-%macro print 2
 ; Display message
-mov rax,01
-mov rdi,01
-mov rsi,%1
-mov rdx,%2
-syscall
+%macro print 2
+    mov rax,01
+    mov rdi,01
+    mov rsi,%1
+    mov rdx,%2
+    syscall
 %endmacro
 
 section .bss
@@ -37,23 +37,25 @@ _start:
 ; Loop through the array to find the maximum number
 find_max:
 mov byte[cnt],05h
-mov r8,num
-mov al,00h
-loop_start:
-cmp al,byte[r8]
-ja loop_end
-mov al,byte[r8]
-loop_end:
-inc r8
-dec byte[cnt]
-jnz loop_start
+mov r8,num ;point to the array
+mov al,00h ;al = 0
+loop_start: 
+cmp al,byte[r8] 
+ja loop_end ;al>byte[r8] then jump
+mov al,byte[r8] ; al = byte[r8]
+loop_end: 
+inc r8          ; [r8]++
+dec byte[cnt] ;cnt --
+jnz loop_start ; if cnt != 0 
 
-; Convert the maximum number to ASCII and store it in 'larg' buffer
+; Convert the maximum number to ASCII and store it in 'larg' buffer 
+; al contains largest number
+
 hex_to_ascii:
-mov rbp,larg
-mov byte[cnt],02h
+mov rbp,larg ;point to variable larg
+mov byte[cnt],02h 
 up:
-rol al,04
+rol al,04 
 mov dl,al
 and dl,0Fh
 cmp dl,09h

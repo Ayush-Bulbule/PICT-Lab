@@ -44,14 +44,6 @@ mov rdx,16
 syscall
 
 
-; Display "To display length of the String"
-mov rax,01
-mov rdi,01
-mov rsi,msg2
-mov rdx,len2
-syscall
-
-
 ; Convert hex to ascii and store in length buffer
 
 ; rax contains the length of the input string in hexadecimal
@@ -76,6 +68,14 @@ mov byte[r8], bl   ; move the ASCII value to the current position in the length 
 inc r8              ; move to the next position in the length buffer
 dec byte [cnt]     ; decrement the counter
 jnz up              ; if there are more nibbles to process, jump to label up
+
+; Display "To display length of the String"
+mov rax,01
+mov rdi,01
+mov rsi,msg2
+mov rdx,len2
+syscall
+
 
 ; Display length of string
 mov rax,01

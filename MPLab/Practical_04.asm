@@ -153,7 +153,6 @@ Division:
 	
 	push rax
 	mov rax, rdx
-	
 	call HexToAscii
 	print msgDiv, msgDivLen
 	print result, 2

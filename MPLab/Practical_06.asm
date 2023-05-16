@@ -1,220 +1,131 @@
-; Write X86/64 ALP to convert 4-digit Hex number into its equivalent BCD number and 5-digit BCD number into its equivalent HEX number.
-; Make your program user friendly to accept the choice from user for: (a) HEX to BCD b) BCD to HEX (c) EXIT. Display proper strings to
-; prompt the user while accepting the input and displaying the result. (wherever necessary, use 64-bit registers)
-
 section .data
-    msg : db "1.HEX to BCD ", 0x0A
-          db "2.BCD to HEX ", 0x0A
-          db "3.Exit",0x0A
-    len equ $-msg
-    msg1 db "Enter your Choice : "
-    len1 equ $-msg1
-    msg2 db "Enter HEX number : "
-    len2 equ $-msg2
-    msg3 db "Enter BCD number : "
-    len3 equ $-msg3
-    msg4 db "Equivalent BCD number is : "
-    len4 equ $-msg4
- 
-    msg5: db "Equivalent HEX number is : "
-    len5: equ $-msg5
-    m: db " ",0x0A
-    l: equ $-m
+    menuMsg: db "1. HEX to BCD", 0x0A
+             db "2. BCD to HEX", 0x0A
+             db "3. Exit", 0x0A
+    menuLen equ $ - menuMsg
+
+    choicePrompt: db "Enter your Choice: "
+    choicePromptLen equ $ - choicePrompt
+
+    hexPrompt: db "Enter HEX number: "
+    hexPromptLen equ $ - hexPrompt
+
+    bcdPrompt: db "Enter BCD number: "
+    bcdPromptLen equ $ - bcdPrompt
+
+    bcdResultMsg: db "Equivalent BCD number is: "
+    bcdResultLen equ $ - bcdResultMsg
+
+    hexResultMsg: db "Equivalent HEX number is: "
+    hexResultLen equ $ - hexResultMsg
+
+    newLine: db " ", 0x0A
+    newLineLen equ $ - newLine
 
 section .bss
-
-    num: resb 6
+    number: resb 6
     result: resb 4
-    ans : resb 4
-    digitcount : resb 01
-    choice : resb 02
- 
-section .txt
+    answer: resb 4
+    digitCount: resb 01
+    userChoice: resb 02
+
+section .text
 global _start
 _start:
 
 menu:
-    mov rax,1
-    mov rdi,1
-    mov rsi,m                  ;Newline
-    mov rdx,l
+    ; Display menu options
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, newLine ; Newline
+    mov rdx, newLineLen
     syscall
- 
-    mov rax,1
-    mov rdi,1
-    mov rsi,m                  ;Newline
-    mov rdx,l
+
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, newLine ; Newline
+    mov rdx, newLineLen
     syscall
- 
-    mov rax,1
-    mov rdi,1
-    mov rsi,msg             
-    mov rdx,len
+
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, menuMsg
+    mov rdx, menuLen
     syscall
- 
-    mov rax,1
-    mov rdi,1
-    mov rsi,msg1
-    mov rdx,len1
+
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, choicePrompt
+    mov rdx, choicePromptLen
     syscall
- 
-    mov rax,0
-    mov rdi,0
-    mov rsi,choice
-    mov rdx,02
+
+    mov rax, 0
+    mov rdi, 0
+    mov rsi, userChoice
+    mov rdx, 02
     syscall
- 
-    cmp byte[choice],31H
+
+    cmp byte[userChoice], 31H
     je case1
- 
-    cmp byte[choice],32H
+
+    cmp byte[userChoice], 32H
     je case2
- 
-    cmp byte[choice],33H
+
+    cmp byte[userChoice], 33H
     je case3
- 
-    
+
 case2:
-
-    mov rax,1
-    mov rdi,1
-    mov rsi,msg3
-    mov rdx,len3
-    syscall
- 
- 
-    mov rax,0
-    mov rdi,0
-    mov rsi,num
-    mov rdx,6
-    syscall
- 
-    xor rax,rax
-    mov rbx,10
-    mov rcx,05
-
-up2: 
-    xor rdx,rdx
-    mul ebx
-    xor rdx,rdx
-    mov dl,[rsi]
-    sub dl,30H
-    add rax,rdx
-    inc rsi
-    dec rcx
-    jnz up2
- 
-    mov [result],ax
- 
-    mov rax,1
-    mov rdi,1
-    mov rsi,msg5
-    mov rdx,len5
-    syscall
- 
-    mov ax,[result]
-    call display
- 
-    jmp menu
- 
-case1: 
-    mov rax,1
-    mov rdi,1
-    mov rsi,msg2
-    mov rdx,len2
-    syscall
- 
-    call accept
- 
-    mov ax,bx
-
-    mov rbx,10
-back:
-    xor rdx,rdx
-    div rbx
-
-    push dx
-    inc byte[digitcount]
-
-    cmp rax,0h
-    jne back
- 
-print:
-    pop dx
-    add dl,30h   
-    mov [result],dl
-
-    mov rax,1
-    mov rdi,1
-    mov rsi,result
-    mov rdx,1
+    ; BCD to HEX conversion
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, bcdPrompt
+    mov rdx, bcdPromptLen
     syscall
 
-    dec byte[digitcount]
-    jnz print
- 
-    jmp menu
- 
- 
-accept:
-
-    mov rax,0
-    mov rdi,0
-    mov rsi,num
-    mov rdx,5
-    syscall 
-     
-    xor bx,bx
-    mov rcx,4
-    mov rsi,num
-
-next_digit:
-
-    rol bx,04
-    mov al,[rsi]
-    cmp al,39h
-    jbe sub30
-    sub al,7h
-
-sub30:  sub al,30h
-   
-    add bx,ax   
-    inc rsi   
-    loop next_digit
-ret
-
- 
-display: 
-    mov rsi,ans+3
-    mov rcx,4
- 
-count:
-
-    mov rdx,0
-    mov rbx,16
-    div rbx
-    cmp dl,09H
-    jbe skip2
-    add dl,07H
- 
-skip2:
-    add dl,30H
-    mov [rsi],dl
-    dec rsi
-    dec rcx
-    jnz count
- 
-    mov rax,1
-    mov rbx,1
-    mov rsi,ans
-    mov rdx,4
+    mov rax, 0
+    mov rdi, 0
+    mov rsi, number
+    mov rdx, 6
     syscall
-    ret 
- 
+
+    xor rax, rax
+    mov rbx, 10
+    mov rcx, 5
+
+bcdToHexLoop:
+    xor rdx, rdx        ; Clear rdx register (used for intermediate calculations)
+    mul ebx             ; Multiply rax by ebx (eax = eax * ebx), result stored in rdx:eax
+
+    xor rdx, rdx        ; Clear rdx register again
+    mov dl, [rsi]       ; Load the byte at the memory address pointed to by rsi into dl
+    sub dl, 30H         ; Subtract 30H (48 in decimal) from dl to convert ASCII digit to numeric value
+
+    add rax, rdx       ; Add the numeric value in dl to rax (accumulator)
+
+    inc rsi             ; Increment rsi to point to the next byte in the input string
+    dec rcx             ; Decrement rcx (loop counter) to keep track of remaining iterations
+    jnz bcdToHexLoop    ; Jump to bcdToHexLoop if rcx is not zero (loop until rcx becomes zero)
+
+    mov [result], ax    ; Store the final result in the variable 'result' (assuming it's a memory location)
+
+    ; Output the result as a hexadecimal number
+    mov rax, 1          ; System call number 1 (write)
+    mov rdi, 1          ; File descriptor 1 (stdout)
+    mov rsi, hexResultMsg ; Address of the message to be printed
+    mov rdx, hexResultLen ; Length of the message
+    syscall             ; Perform the system call to print the message
+
+    mov ax, [result]    ; Load the result back into ax (assuming it's a 16-bit value)
+    call displayNumber  ; Call a subroutine to display the number
+
+    jmp menu            ; Jump to the 'menu' label (assuming it exists)
 
 
- case3:
-    mov rax,60
-    mov rdi,0
-    syscall
- 
+case1:
+    ; HEX to BCD conversion
+    mov rax,
+
+
+;Test Case 1:
+;BCD - 4391
+;HEX - ABCD

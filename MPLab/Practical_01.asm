@@ -1,104 +1,76 @@
 ;Display the five 64 bit Hexadecimal numbers from the user 
-
 section .data
-    msg1 db "Count of Positive numbers:"
-    len1 equ $-msg1
+    msg1 db "Program to accept 5 numbers and print them!",0xA ; message to be printed at the beginning of the program
+    len1 equ $-msg1 ; length of msg1
 
-    msg2 db "Count of Negative numbers:"
-    len2 equ $-msg2
+    msg2 db "Enter 5 numbers:" ,0xA ; message to prompt the user to enter the numbers
+    len2 equ $-msg2 ; length of msg2
 
-    array db 10, 12, -21, -12, -19, -34, 41
+    msg3 db "Displaying 5 numbers:" ,0xA ; message to indicate that the numbers are being displayed
+    len3 equ $-msg3 ; length of msg3
 
-    nLine db "", 0xA
-    lenNLine equ $-nLine
-
-%macro print 2
-    mov rax, 01
-    mov rdi, 01
-    mov rsi, %1
-    mov rdx, %2
-    syscall
-%endmacro
-
-%macro newLine 0
-    mov rax, 01
-    mov rdi, 01
-    mov rsi, nLine
-    mov rdx, lenNLine
-    syscall
-%endmacro
+    cnt db 05h ; counter to track the number of times the loop needs to be executed
+    mov r8,00h ; initializing r8 to 0
 
 section .bss
-    count resb 2
-    positiveCount resb 2
-    negativeCount resb 2
-    totalCount resb 2
+    num resb 16 ; array to store the user input
 
 section .text
+
 global _start
-_start:
-    ; Initialize counters and array pointer
-    mov byte[count], 07
-    mov byte[positiveCount], 00
-    mov byte[negativeCount], 00
-    mov rsi, array
 
-Up:
-    ; Process each element of the array
-    mov al, 00
-    add al, [rsi]
-    js negative
-    inc byte[positiveCount]
-    jmp Down
-negative:
-    inc byte[negativeCount]
+_start :
 
-Down:
-    ; Move to the next element and decrement the counter
-    add rsi, 01
-    dec byte[count]
-    jnz Up
+Msg1:
+    mov rax,01 ; write instruction
+    mov rdi,01 ; stdout file descriptor
+    mov rsi,msg1 ; message to print
+    mov rdx,len1 ; length of message
+    syscall ; system call to print the message
 
-    ; Print the results
-    mov bl, [positiveCount]
-    mov dl, [negativeCount]
+InputMsg:
+    mov rax,01
+    mov rdi,01 
+    mov rsi,msg2 
+    mov rdx,len2 
+    syscall 
 
-b1:
-    ; Display count of positive numbers
-    print msg1, len1
-    mov bh, [positiveCount]
-    call displayCount
+    mov r8,num ; r8 pointing to num array
 
-    newLine
+InputNum:
+    mov rax,00 ; read instruction
+    mov rdi,00 ; stdin file descriptor
+    mov rsi,r8 ; memory location where the input is to be stored
+    mov rdx,17 ; number of bytes to be read (16 bytes for 64 bit hexadecimal number and 1 byte for newline character)
+    syscall ; system call to read the input
 
-    ; Display count of negative numbers
-    print msg2, len2
-    mov bh, [negativeCount]
-    call displayCount
-    newLine
 
-    jmp Exit
+    add r8,17 ; incrementing the pointer by 17 bytes to point to the next memory location to store the next input
+    dec byte[cnt] ; decrementing the counter by 1
+    jnz InputNum ; if counter is not zero, repeat the loop
 
-displayCount:
-    ; Convert the count to ASCII and print it
-    mov byte[count], 02
-loop:
-    rol bh, 04
-    mov al, bh
-    AND al, 0FH
-    cmp al, 09
-    jbe l1
-    add al, 07h
-l1:
-    add al, 30h
-    mov [totalCount], al
-    print totalCount, 02
-    dec byte[count]
-    jnz loop
-    ret
+OutputMsg:
+    mov rax,01 
+    mov rdi,01 
+    mov rsi,msg3 
+    mov rdx,len3 
+    syscall 
+
+    mov byte[cnt],05h ; reinitialize cnt to 05
+    mov r8,num ; point r8 to start of num array
+
+OutputNum:
+    mov rax,01 
+    mov rdi,01
+    mov rsi,r8 
+    mov rdx,17 
+    syscall 
+
+    add r8,17 ; incrementing the pointer by 17 bytes to point to the next memory
+    dec byte[cnt] ; decrementing the counter by 1
+    jnz OutputNum ; if counter is not zero, repeat the loop
 
 Exit:
-    ; Exit the program
-    mov rax, 60
-    mov rdi, 00
-    syscall
+    mov rax,60 ; exit system call
+    mov rdi,0 ; exit status
+    syscall ; system call to exit the program
