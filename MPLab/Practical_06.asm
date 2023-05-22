@@ -1,3 +1,5 @@
+
+;
 section .data
     menuMsg: db "1. HEX to BCD", 0x0A
              db "2. BCD to HEX", 0x0A
