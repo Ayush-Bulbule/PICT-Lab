@@ -19,11 +19,12 @@ This repository serves as a comprehensive collection of lab practicals and assig
 
 The repository covers lab work from various subjects, including but not limited to:
 
+- Object Oriented Programming
 - Data Structures Algorithms
 - Computer Graphics
+- Microprocessors
 - Database Management Systems
 - Operating Systems
-- Software Engineering
 - Computer Networks
 - and more...
 
