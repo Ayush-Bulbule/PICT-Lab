@@ -1,3 +1,9 @@
+/**
+ * Practical No 1:Implement CPU scheduling algorithm
+ * Write a program to simulate CPU Scheduling Algorithms: FCFS, SJF (Preemptive), Priority
+ * (Non-Preemptive) and Round Robin (Preemptive).
+ * */
+
 #include <iostream>
 #define N 10
 using namespace std;
@@ -25,6 +31,7 @@ class ProcessScheduling
     int num_process;
     Process *process;
 
+    // FCFS
     void fcfs(int *ct, int *tat, int *wt)
     {
         int current_time = 0;
@@ -43,6 +50,7 @@ class ProcessScheduling
         }
     }
 
+    // SJF
     void sjf(int *ct, int *tat, int *wt)
     {
         int current_time = 0;

@@ -1,0 +1,56 @@
+CNS IMP Topics:
+1. LAN WAN MAN Diff.
+2. OSI Layer TCPIP Draw
+3. Topologies in Lab, Campus Network
+4. Types  of Cables, real Life Applications,coneciorsd
+5. IEEE fornmat numbers bluetooth, wifi, ethernet (not 11a, b, c not askec)
+6. Twisted pair Cable.
+7. 10 Based two
+
+UNIT 2
+1. CRC Hamming Example
+2. Polynomial, Xcube, Generator, Redudant Bit formula 2^power
+3. Types of Error.
+4. Bit Stuffing and Byte stuffing(rare case)
+
+UNIT 3
+01. Subnetting, IP Header Format
+02. Calculations of Subnet Masks - Class A, B, C
+03. Difference of Subnet.
+04. CIDR Prefix Notation
+05. RIP 
+06. IP V4 vs V6 with justification
+07. Header Format of IPV4
+
+UNIT 4
+01. TCP UDP difference
+02. TCP Header Format
+03. UDP Header Format
+04. Ping IP Address
+05. Traceroute
+06. Networkk realated Commands.
+07. Congetion vbs collision.
+08. Connection less vs COnnection Oriented.
+09. Problems Based on these
+10. Layer 3 and router difference
+11. All devices at which layer working.
+12. Maintainence
+13. Responsiblities of transport layer.
+
+UNIT 5
+1.  Telnet 
+2.  All PORT No.
+3.  DNS
+4.  DNS Query Resolution method
+5.  DORA Process.
+6.  HTTP, SMTP, SNMP, 
+7.  Snipping tools.
+8.  Differences 
+9.  HTTP Header Format
+10. Proxuy server
+11. Firewall
+12. SSL, DHCP, SSH.
+13. CISCO Packet Tracer
+
+UNIT 6
+01. HTTP, ESP, AH
