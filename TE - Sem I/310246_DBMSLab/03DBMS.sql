@@ -25,6 +25,11 @@ group by d.dept_id;
 -- +-----------------------+---------------+---------------+
 -- 5 rows in set (0.01 sec)
 --  3. Find the Employee details ,Proj_id,Project cost who does not have Project location as ‘Hyderabad’.
+
+SELECT DISTINCT e.emp_id, e.emp_fname, e.emp_lname, p.proj_id, p.proj_cost
+FROM employee AS e
+JOIN projects AS p ON e.dept_id = p.dept_id
+WHERE p.proj_location <> 'Hyderabad';
 --  4. Find Department Name ,employee name, Emp_position for which project year is 2020,
 --  5. Display emp_position,D_name who have Project cost >30000
 --  6. Find the names of all the Projects that started in the year 2015.

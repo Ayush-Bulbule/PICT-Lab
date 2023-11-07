@@ -246,9 +246,6 @@ db.teachers.updateMany(
 //10. delete with appointment type as adhoc
 db.teachers.deleteOne
 
-
-
-
 // Adding random experiences
 db.teachers.find().forEach(function (teacher) {
     var randomTeachingExperience = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10

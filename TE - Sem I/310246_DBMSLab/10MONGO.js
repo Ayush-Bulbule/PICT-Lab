@@ -5,7 +5,7 @@
  Schema:
  {
     "product":"Toothbrush",
-    "total":4.6,
+    "price":22,
     "customer":"Ayush"
  }
 
@@ -17,48 +17,47 @@
     5.Find the product with least earnings.
     6.Find how much money each customer has spent on toothbrushes and pizza
     7.Find the customer who has given highest business for the product toothbrush
+*/
 
- */
+// 1. Create collection.
+
+db.createCollection("orders");
 
 
-// 1. Insert the Documents in the Database:
-db.purchase_orders.insertMany([
+//2. Insert Documents
+db.orders.insertMany([
     {
         "product": "toothbrush",
         "price": 21,
         "customer": "Ayush"
     },
     {
-        "product": "milk",
-        "price": 32,
-        "customer": "Karan"
+        "product": "toothbrush",
+        "price": 21,
+        "customer": "Durvesh"
     },
     {
         "product": "pizza",
-        "price": 139,
+        "price": 130,
         "customer": "Kushal"
     },
     {
-        "product": "toothbrush",
-        "price": 21,
-        "customer": "Ajey"
-    },
-    {
         "product": "pizza",
-        "price": 139,
-        "customer": "Kumar"
+        "price": 130,
+        "customer": "Ayush"
     },
     {
-        "product": "milk",
-        "price": 32,
-        "customer": "Tanay"
+        "product": "tea",
+        "price": 20,
+        "customer": "Karan"
     },
     {
-        "product": "chocolate",
-        "price": 80,
-        "customer": "Piyush"
-    },
+        "product": "tea",
+        "price": 20,
+        "customer": "Yash"
+    }
 ]);
+
 
 
 //1. Find out how many toothbrushes were sold

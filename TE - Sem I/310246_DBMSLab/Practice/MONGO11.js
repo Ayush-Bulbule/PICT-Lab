@@ -2,6 +2,4 @@
 MongoDB Map Reduce:
 
 
-
-
 */
