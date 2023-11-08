@@ -1,6 +1,7 @@
 -- ER Modeling and Normalization:
 
 ---
+
 title: Entity-Relationship Modeling and Normalization
 date: 2023-11-08
 ---
@@ -18,6 +19,7 @@ In the field of database design, Entity-Relationship (ER) modeling and normaliza
 Entities are the fundamental objects in a database. They represent real-world objects or concepts. Each entity is uniquely identified by a set of attributes and is typically represented as a rectangle in an ER diagram.
 
 Example Entity:
+
 ```
   Attributes: ID, First Name, Last Name, Email
 ```
@@ -27,10 +29,10 @@ Example Entity:
 Relationships define how entities are related to each other. They describe how data is connected in the database. Relationships can be one-to-one, one-to-many, or many-to-many.
 
 Example Relationship:
+
 ```
   [Person] --(1:N)--> [Address]
 ```
-
 
 ## Normalization
 
@@ -54,6 +56,7 @@ OrderID | Product1 | Product2 | Product3
 A table is in 2NF if it is in 1NF and all non-key attributes are fully functionally dependent on the primary key.
 
 Example 2NF Table:
+
 ```
   [OrderDetails]
 OrderID | ProductID | Quantity
@@ -61,7 +64,6 @@ OrderID | ProductID | Quantity
 1 | 102 | 3
 2 | 101 | 2
 ```
-
 
 ### Third Normal Form (3NF)
 
@@ -75,7 +77,6 @@ CustomerID | CustomerName | City
 101 | Alice | New York
 102 | Bob | Los Angeles
 ```
-
 
 ## Conclusion
 
