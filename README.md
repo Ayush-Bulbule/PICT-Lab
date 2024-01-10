@@ -1,15 +1,12 @@
 # PICT Lab Repository
 
-Welcome to the PICT Lab Repository! This repository contains all the lab practicals and assignments I completed during my engineering at Pune Institute of Computer Technology (PICT). Feel free to explore and utilize the resources available here.
+Welcome to the PICT Lab Repository! This repository contains all the lab practicals and assignments I completed during my engineering at Pune Institute of Computer Technology (PICT). Feel free to explore and utilize the resources available here. If this repo helped you don't forget to give it a 🌟!
 
 ## Table of Contents
 
 - [About](#about)
 - [Lab Subjects](#lab-subjects)
 - [Directory Structure](#directory-structure)
-- [How to Use](#how-to-use)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## About
 
