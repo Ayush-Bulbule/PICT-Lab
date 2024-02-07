@@ -5,4 +5,4 @@
 <!ELEMENT age (#PCDATA)>
 <!ELEMENT gender (#PCDATA)>
 <!ELEMENT city (#PCDATA)>
-<!
+<!ELEMENT college (#PCDATA)>
