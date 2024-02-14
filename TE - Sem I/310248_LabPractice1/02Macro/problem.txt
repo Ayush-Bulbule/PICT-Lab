@@ -1,0 +1,2 @@
+Design suitable data structures and implement Pass-I and Pass-II of a two-pass macroprocessor. The output of Pass-I (MNT, MDT 
+and intermediate code file without any macro definitions) should be input for Pass-II.
