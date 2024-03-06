@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="employees.xsl"?>
+<!DOCTYPE employees SYSTEM "employees.dtd">
+<employees>
+    <employee>
+        <id>1</id>
+        <name>Rahul Sharma</name>
+        <department>Computer Science</department>
+        <position>Professor</position>
+        <salary>80000</salary>
+    </employee>
+    <employee>
+        <id>2</id>
+        <name>Sanjana Patel</name>
+        <department>Electronics</department>
+        <position>Assistant Professor</position>
+        <salary>60000</salary>
+    </employee>
+    <!-- More employees -->
+    <employee>
+        <id>3</id>
+        <name>John Doe</name>
+        <department>Computer Science</department>
+        <position>Associate Professor</position>
+        <salary>70000</salary>
+    </employee>
+    <employee>
+        <id>4</id>
+        <name>John Smith</name>
+        <department>Electronics</department>
+        <position>Professor</position>
+        <salary>80000</salary>
+    </employee>
+    <employee>
+        <id>5</id>
+        <name>John Brown</name>
+        <department>Computer Science</department>
+        <position>Assistant Professor</position>
+        <salary>60000</salary>
+    </employee>
+</employees>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Online Food Delivary in India| MyMeal.com</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Open+Sans&family=Roboto+Slab&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" media="screen and (max-width:980px)" href="phone.css">
+    <link rel="shortcut icon" href="./images/favicon1.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- NAvbar -->
+    <nav id="navbar">
+        <div id="logo">
+            <img src="./images/logo2.jpg" alt="">
+            <div id="brand"><span style="color: darkorange;">my</span> Meal</div>
+            <span class="icn" for="toggle" onclick="toggle();">&#9776;</span>
+
+        </div>
+        <div id="navlist">
+            <ul>
+                <li class="item"><a href="">Home</a></li>
+                <li class="item"><a href="#services">Services</a></li>
+                <li class="item"><a href="#client-section">About us</a></li>
+                <li class="item"><a href="#contact">Contact us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home -->
+    <section id="home">
+        <h1 class="h-primary">
+            Welcome to My Meal
+        </h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi necessitatibus delectus.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <button class="btn">Order Now</button>
+    </section>
+
+    <!-- Services -->
+    <section id="services-container">
+        <h1 class="h-primary">
+            Our Services
+        </h1>
+        <div id="services">
+            <div class="box">
+                <img src="./images/brgr.png" alt="">
+                <h2 class="h-secondary">Fast Food</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi necessitatibus delectus. Lorem, ipsum
+                    dolor sit amet consectetur adipisicing elit. Voluptatibus labor. </p>
+            </div>
+            <div class="box">
+                <img src="./images/thli.png" alt="">
+                <h2 class="h-secondary">Special Thali's</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi necessitatibus delectus. Lorem, ipsum
+                    dolor sit amet consectetur adipisicing elit. Voluptatibus labore.</p>
+            </div>
+            <div class="box">
+                <img src="./images/dlvry.png" alt="">
+                <h2 class="h-secondary">Fast Delivary</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi necessitatibus delectus. Lorem, ipsum
+                    dolor sit amet consectetur adipisicing elit. Voluptatibus labor. </p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Client Review  -->
+    <section id="client-section">
+        <h1 class="h-primary" style="color: purple">Our Clients</h1>
+        <div id="clients">
+            <div class="client-items">
+                <img src="./images/sp-logo3.png" alt="" class="logo-client">
+            </div>
+            <div class="client-items">
+                <img src="./images/sp-logo.png" alt="" class="logo-client">
+            </div>
+            <div class="client-items">
+                <img src="./images/sp-logo2.png" alt="" class="logo-client">
+            </div>
+
+            <div class="client-items">
+                <img src="./images/sp-logo1.png" alt="" class="logo-client">
+            </div>
+            <div class="client-items">
+                <img src="./images/sp-logo5.png" alt="" class="logo-client">
+            </div>
+        </div>
+    </section>
+
+    <!-- ContactUs -->
+
+    <section id="contact">
+        <h1 class="h-primary">
+            Contact Us
+        </h1>
+        <div class="conatct-box">
+            <form action="" method="get">
+                <div class="form-group">
+                    <label for="name">Name :</label>
+                    <input type="text" name="name" id="name" placeholder="Enter Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" name="name" id="email" placeholder="Enter Your Email">
+                </div>
+                <div class="form-group">
+                    <label for="name">Phone :</label>
+                    <input type="number" name="name" id="password" placeholder="Enter Your Phone">
+                </div>
+                <div class="form-group">
+                    <label for="name">Feed :</label>
+                    <textarea name="message" id="msg" cols="30" rows="8" placeholder="Tour feed Here!"></textarea>
+                </div>
+                <button class="btn" style="color:brown;background-color:gold;">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="center-div">
+            &copy;MyMeal Online services |All Rights Reserved.|By AyushB
+        </div>
+    </footer>
+
+    <script>
+        function toggle() {
+            var navlist = document.getElementById("navlist");
+            console.log(navlist);
+
+            if (navlist.style.display == 'none') {
+                document.getElementById("navlist").style.display = "block";
+            } else {
+                document.getElementById("navlist").style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
