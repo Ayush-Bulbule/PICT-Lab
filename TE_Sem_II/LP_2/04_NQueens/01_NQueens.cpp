@@ -5,7 +5,7 @@ using namespace std;
 class N_Queens
 {
     int **matrix;
-    int size
+    int size;
     public:
    
     N_Queens(int n)
