@@ -42,7 +42,7 @@
    
            $ ./spark-shell
            scala> :load wordcount.scala
-       ```
+       
 5. Observe the output
 
 **Output**:
