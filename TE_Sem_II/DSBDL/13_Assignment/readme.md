@@ -1,4 +1,4 @@
-#### Assignment No 13
+### Assignment No 13
 
 **Aim**: Write a simple program in SCALA using Apache Spark framework
 
@@ -10,6 +10,8 @@
 
 **Procedure**:
 1. Install Apache Spark and SCALA
+    https://phoenixnap.com/kb/install-spark-on-ubuntu
+    
 2. Create a new SCALA program
 
     ```scala
@@ -36,7 +38,7 @@
 
     Save the file as `wordcount.scala`
 3. Compile and run the program
-    
+
         ```bash
             $ ./spark-shell
             scala> :load wordcount.scala
