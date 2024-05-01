@@ -38,12 +38,10 @@
 
     Save the file as `wordcount.scala`
 3. Compile and run the program
-
-        ```bash
-            $ ./spark-shell
-            scala> :load wordcount.scala
-        ```
-4. Observe the output
+       ```$ ./spark-shell
+           scala> :load wordcount.scala
+       ```
+5. Observe the output
 
 **Output**:
 - The output will be saved in the `output1.txt` file
