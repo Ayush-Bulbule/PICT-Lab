@@ -38,7 +38,8 @@
 
     Save the file as `wordcount.scala`
 3. Compile and run the program
-       ```$ ./spark-shell
+       ```
+           $ ./spark-shell
            scala> :load wordcount.scala
        ```
 5. Observe the output
