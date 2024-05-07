@@ -1,130 +1,176 @@
-#include<bits/stdc++.h>
-
+#include <iostream>
 using namespace std;
 
-class N_Queens
+int cnt = 1;
+
+void display(bool board[][12], int n)
 {
-    int **matrix;
-    int size;
-    public:
-   
-    N_Queens(int n)
+    for (int i = 0; i < n; i++)
     {
-        size = n;
-        matrix = new int*[size];
-        for(int i=0;i<size;i++)
+        for (int j = 0; j < n; j++)
         {
-            matrix[i] = new int[size];
+            if (board[i][j])
+                cout << "Q ";
+            else
+                cout << ". ";
         }
-        init();
+        cout << endl;
+    }
+    cout << endl;
+}
+
+int queenB(bool board[][12], int row, int n)
+{
+    // base case
+    if (row == n)
+    {
+        display(board, n);
+        cout << endl;
+        return 1;
     }
 
-    void init()
+    // conditional cases
+    int count = 0;
+
+    for (int col = 0; col < n; col++) // bekkar main loop
     {
-        for(int i=0;i<size;i++)
+        bool safe = true;
+
+        // check vertical safe
+        for (int i = 0; i < row; i++)
         {
-            for(int j=0;j<size;j++)
+            if (board[i][col])
             {
-                matrix[i][j] = 0;
+                safe = false;
+                break;
             }
+        }
+
+        // check letf horizontal safe
+        int leftShift = min(row, col);
+        for (int i = 1; i <= leftShift; i++)
+        {
+            if (board[row - i][col - i])
+            {
+                safe = false;
+                break;
+            }
+        }
+
+        // check right horizontal safe
+        int rightShift = min(row, n - col - 1);
+        for (int i = 1; i <= rightShift; i++)
+        {
+            if (board[row - i][col + i])
+            {
+                safe = false;
+                break;
+            }
+        }
+
+        if (safe)
+        {
+            board[row][col] = true;
+            display(board, n);
+            count += queenB(board, row + 1, n);
+            board[row][col] = false;
         }
     }
 
-    void print()
+    return count;
+}
+
+void backTrackQueen(int n)
+{
+    bool board[12][12] = {{false}};
+    int noOfPossibleSol = queenB(board, 0, n);
+    cout << "Possible solutions = " << noOfPossibleSol << endl;
+}
+
+void queensBNB(bool board[][12], int row, bool colAttacked[], bool leftDiagonalAttacked[], bool rightDiagonalAttacked[], int n)
+{
+    // base case
+    if (row == n)
     {
-        for(int i=0;i<size;i++)
-        {
-            for(int j=0;j<size;j++)
-            {
-                if(matrix[i][j])
-                {
-                    cout<<"Q"<<" ";
-                }
-                else
-                {
-                    cout<<"."<<" ";
-                }
-            }
-            cout<<endl;
-        }
+        cout << "Final: " << cnt << endl;
+        cnt += 1;
+        display(board, n);
+        return;
     }
 
-    bool isSafe(int row,int col)
+    // conditions
+
+    for (int col = 0; col < n; col++)
     {
-        int i,j;
-        for(int i=0;i<col;i++)
+        if (!colAttacked[col] && !leftDiagonalAttacked[row + col] && !rightDiagonalAttacked[row - col + n - 1])
         {
-            if(matrix[row][i])
-            {
-                return false;
-            }
-        }
-        for(int i=row,j=col;i>=0 && j>=0;i--,j--)
-        {
-            if(matrix[i][j])
-            {
-                return false;
-            }
-        }
-        for(int i=row,j=col; j>=0 && i<size;i++,j--)
-        {
-            if(matrix[i][j])
-            {
-                return false;
-            }
-        }
+            board[row][col] = true;
+            colAttacked[col] = true;
+            leftDiagonalAttacked[row + col] = true;
+            rightDiagonalAttacked[row - col + n - 1] = true;
 
-        return true;
+            queensBNB(board, row + 1, colAttacked, leftDiagonalAttacked, rightDiagonalAttacked, n);
 
+            board[row][col] = false;
+            colAttacked[col] = false;
+            leftDiagonalAttacked[row + col] = false;
+            rightDiagonalAttacked[row - col + n - 1] = false;
+        }
     }
+}
 
-    bool solve(int col)
-    {
-        // base case: If all queens are placed
-        // then return true
-        if(col >= size)
-        {
-            return true;
-        }
-
-        for(int i=0;i<size;i++)
-        {
-            //Check if the queen can be placed on board[i][col]
-            if(isSafe(i,col))
-            {
-                // Place this queen in board[i][col]
-                matrix[i][col] = 1;
-
-                // recur to place rest of the queens
-                if(solve(col+1))
-                {
-                    return true;
-                }
-                // If placing queen in board[i][col] doesn't lead to a solution, then remove queen from board[i][col]
-                matrix[i][col] = 0;
-            }
-           
-        }
-        // If the queen cannot be placed in any row in this column col  then return false
-        return false;
-
-    }
-
-
-};
-
+void branchAndBound(int n)
+{
+    bool board[12][12] = {{false}};
+    bool colAttacked[12] = {false};
+    bool leftDiagonalAttacked[2 * 12 - 1] = {false};
+    bool rightDiagonalAttacked[2 * 12 - 1] = {false};
+    queensBNB(board, 0, colAttacked, leftDiagonalAttacked, rightDiagonalAttacked, n);
+}
 
 int main()
 {
     int n;
-    cout<<"Enter N : ";
-    cin>>n;
-    N_Queens obj(n);
-    bool ans = obj.solve(0);
-   
-   obj.print();
-   
+    cout << "Enter the number of queens: ";
+    cin >> n;
 
+    if (n < 4)
+    {
+        cout << "No possible solutions" << endl;
+        return 0;
+    }
+
+    bool flag = true;
+
+    while (flag)
+    {
+        cout << "\n1. Back-Track\n";
+        cout << "2. Branch and Bound\n";
+        cout << "3. Exit\n";
+
+        int ch;
+        cout << "\nEnter Your Choice: ";
+        cin >> ch;
+
+        switch (ch)
+        {
+        case 1:
+            backTrackQueen(n);
+            break;
+
+        case 2:
+            branchAndBound(n);
+            break;
+
+        case 3:
+            flag = false;
+            break;
+
+        default:
+            flag = false;
+            break;
+        }
+    }
 
     return 0;
-}        
+}
