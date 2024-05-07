@@ -1,74 +1,195 @@
+
 #include <iostream>
-#include <vector>
-#include <queue>
-#include <utility> // For std::pair
+#define INF 1e9
 
 using namespace std;
 
-// Define the structure for edges
-struct Edge {
-    int to, weight;
-    Edge(int to, int weight) : to(to), weight(weight) {}
-};
+class Graph
+{
+    int **adjMatrix;
+    string *cities;
+    int nv;
 
-// Compare function for priority queue
-struct CompareEdge {
-    bool operator()(Edge& a, Edge& b) {
-        return a.weight > b.weight; // Min-Heap based on weight
-    }
-};
+public:
+    Graph(int nv)
+    {
+        this->nv = nv;
+        adjMatrix = new int *[nv];
+        cities = new string[nv];
 
-// Function to add edge
-void addEdge(vector<vector<Edge>>& graph, int from, int to, int weight) {
-    graph[from].push_back(Edge(to, weight));
-}
+        for (int i = 0; i < nv; i++)
+        {
+            adjMatrix[i] = new int[nv];
 
-// Greedy Search using Priority Queue
-void greedySearch(vector<vector<Edge>>& graph, int start, int n) {
-    // Vector to store minimum weights to each node
-    vector<int> minWeight(n, INT_MAX);
-    minWeight[start] = 0;
-
-    // Priority queue to pick the edge with the smallest weight
-    priority_queue<Edge, vector<Edge>, CompareEdge> pq;
-    pq.push(Edge(start, 0));
-
-    while (!pq.empty()) {
-        Edge current = pq.top();
-        pq.pop();
-
-        int vertex = current.to;
-        int weight = current.weight;
-
-        // Iterate through all edges connected to the current vertex
-        for (Edge& edge : graph[vertex]) {
-            if (minWeight[edge.to] > weight + edge.weight) {
-                minWeight[edge.to] = weight + edge.weight;
-                pq.push(Edge(edge.to, minWeight[edge.to]));
+            for (int j = 0; j < nv; j++)
+            {
+                adjMatrix[i][j] = 0;
             }
         }
     }
 
-    // Print minimum weights to each vertex from start
-    for (int i = 0; i < n; ++i) {
-        cout << "Shortest path to vertex " << i << " is " << minWeight[i] << endl;
+    int getIndex(string city)
+    {
+        for (int i = 0; i < nv; i++)
+        {
+            if (cities[i] == city)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
-}
+    void addEdge(int src, int des, int weight)
+    {
+        adjMatrix[src][des] = weight;
+        adjMatrix[des][src] = weight;
+    }
+    void initGraph()
+    {
+        string des, src;
+        int weight;
+        int desId, srcId;
+        // take all cities
+        for (int i = 0; i < nv; i++)
+        {
+            cout << "Enter city [" << i << "] : ";
+            cin >> cities[i];
+        }
 
-int main() {
-    int n = 5; // Number of vertices
-    vector<vector<Edge>> graph(n);
+        for (int i = 0; i < nv; i++)
+        {
+            for (int j = 0; j < nv - 1; j++)
+            {
+                cout << "Add city connected to " << cities[i] << " : ";
+                cin >> des;
+                cout << "Enter the cost of connection : ";
+                cin >> weight;
 
-    // Adding edges
-    addEdge(graph, 0, 1, 2);
-    addEdge(graph, 0, 3, 1);
-    addEdge(graph, 1, 2, 1);
-    addEdge(graph, 2, 3, 3);
-    addEdge(graph, 2, 4, 4);
-    addEdge(graph, 3, 4, 2);
+                srcId = getIndex(cities[i]);
+                desId = getIndex(des);
 
-    // Start Greedy Search from vertex 0
-    greedySearch(graph, 0, n);
+                if (srcId == -1 || desId == -1)
+                {
+                    break;
+                }
+                // add edge
+                addEdge(srcId, desId, weight);
+            }
+        }
+    }
 
-    return 0;
+    void displayGraph()
+    {
+        for (int i = 0; i < nv; i++)
+        {
+            cout << cities[i] << " : ";
+            for (int j = 0; j < nv; j++)
+            {
+                cout << " ( " << cities[j] << "," << adjMatrix[i][j] << ")"
+                     << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    int minKey(int key[], bool mstSet[])
+    {
+        int min = INF, min_index;
+
+        for (int i = 0; i < nv; i++)
+        {
+            if (mstSet[i] == false && key[i] < min)
+            {
+                min = key[i];
+                min_index = i;
+            }
+        }
+        return min_index;
+    }
+
+    void primsAlgo()
+    {
+        // declare arrays for state of mst
+        int parent[nv];
+        int key[nv];
+        bool mstSet[nv];
+
+        for (int i = 0; i < nv; i++)
+        {
+            key[i] = INF;
+            mstSet[i] = false;
+        }
+
+        // select first key
+        key[0] = 0;
+        parent[0] = -1;
+
+        for (int count = 0; count < nv - 1; count++)
+        {
+            int u = this->minKey(key, mstSet);
+
+            mstSet[u] = true;
+            for (int i = 0; i < nv; i++)
+            {
+                if (adjMatrix[u][i] && mstSet[i] == false && adjMatrix[u][i] < key[i])
+                {
+                    parent[i] = u;
+                    key[i] = adjMatrix[u][i];
+                }
+            }
+        }
+        printMST(parent);
+    }
+
+    void printMST(int parent[])
+    {
+        cout << "Minimum cost for connection is: " << endl;
+        cout << "Edges\t\tWeight" << endl;
+        int cost = 0;
+        for (int i = 1; i < nv; i++)
+        {
+            cost += adjMatrix[i][parent[i]];
+            cout << cities[parent[i]] << " - " << cities[i] << "\t " << adjMatrix[i][parent[i]] << endl;
+        }
+        cout << "Total Cost is :  " << cost << endl;
+    }
+};
+int main()
+{
+
+    int nv;
+    cout << "Enter the number of cities: ";
+    cin >> nv;
+
+    Graph g(nv);
+
+    bool flag = true;
+    int ch;
+
+    while (flag)
+    {
+        cout << "1. Initlize Graph" << endl;
+        cout << "2. Add Connections " << endl;
+        cout << "3. Prims Min Cost " << endl;
+        cout << "5. Exit...." << endl;
+        cin >> ch;
+        switch (ch)
+        {
+        case 1:
+            g.initGraph();
+            break;
+        case 2:
+            g.displayGraph();
+            break;
+        case 3:
+            g.primsAlgo();
+        case 4:
+            flag = false;
+            cout << "Exiting...." << endl;
+            break;
+        default:
+            cout << "Invalid Input" << endl;
+            break;
+        }
+    }
 }

@@ -1,0 +1,48 @@
+/*
+    Subject: Cloud Computing
+    Problem Statement: Create following application in apex Programming Language:
+        1. Mathematical Calculator
+        2. Generate student mark sheet
+
+    Selected: Mathematical Calculator
+*/
+
+// Test Cases to run debug more
+/*
+System.debug( Calculator.evaluate( '2 + 3' ) ) ;
+System.debug( Calculator.evaluate( '2 * 3' ) ) ;
+System.debug( Calculator.evaluate( '2 - 3' ) ) ;
+System.debug( Calculator.evaluate( '2 / 3' ) ) ;
+*/
+
+public class Calculator {
+    
+    public static Double evaluate( String expression ) {
+        List<String> parts = expression.split( ' ' ) ;
+        if (parts.Size() != 3) {
+            CalloutException e = new CalloutException();
+    		e.setMessage( 'Malformed input received' );
+    		throw e;
+        }
+        Double operand1 = Double.valueOf( parts[0] ) ; 
+        Double operand2 = Double.valueOf( parts[2] ) ;
+        String operator = parts[1] ; 
+        Double result = 0.0 ; 
+        switch on operator {
+            when '+' {
+                result = operand1 + operand2 ;
+            }
+            when '-' {
+                result = operand1 - operand2 ; 
+            }
+            when '*' {
+                result = operand1 * operand2 ; 
+            }
+            when '/' {
+                result = operand1 / operand2 ; 
+            }
+        }
+        return result;
+    }
+
+}

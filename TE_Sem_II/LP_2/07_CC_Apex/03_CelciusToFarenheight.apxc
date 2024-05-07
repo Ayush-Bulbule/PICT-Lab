@@ -1,0 +1,17 @@
+/**
+ * Problem Statement: Create a program to convert Celcius to Fahrenheit
+ */
+
+ public class Temperature{
+    public static Double celciusToFahrenheit(Double celcius){
+        return (celcius * 9/5) + 32;
+    }
+ }
+
+
+ /**
+  * Test Cases: 
+  * System.debug(Temperature.celciusToFahrenheit(100));
+  * System.debug(Temperature.celciusToFahrenheit(50));
+  * System.debug(Temperature.celciusToFahrenheit(0));
+  */

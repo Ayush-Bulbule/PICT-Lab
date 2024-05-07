@@ -1,0 +1,24 @@
+/**
+ * Subject: Cloud Computing
+ * Problem Statement:  Create following application in SalesForce.com using Apex Programming Language:
+ * Find greatest among three numbers
+ */
+
+ public class CompareThree{
+    public static Double compareThree(Double a, Double b, Double c){
+        if(a > b && a > c){
+            return a;
+        }else if(b > a && b > c){
+            return b;
+        }else{
+            return c;
+        }
+    }
+}
+
+//Test Cases
+/**
+ * System.debug(CompareThree.compareThree(1, 2, 3));
+ * System.debug(CompareThree.compareThree(3, 2, 1));
+ * System.debug(CompareThree.compareThree(2, 3, 1));
+ */

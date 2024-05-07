@@ -1,56 +1,74 @@
-#include <iostream>
-#include <string>
-#include <map>
+/**
+ * Problem Statement: Develop an elementary chat bot for any suitable customer interaction application.
+ *
+ * Application: Chatbot for a restaurant (with context)
+ */
+
+#include <bits/stdc++.h>
 
 using namespace std;
 
-// Function to get response from the chatbot
-string getResponse(const string& userQuery) {
-    // Define responses specific to web development services
-    map<string, string> responses = {
-        {"hi", "Hello! How can I assist you with your web development needs today?"},
-        {"how are you", "I'm a chatbot here to assist you with your web development questions. How can I help you?"},
-        {"bye", "Goodbye! Feel free to reach out for more web development assistance."},
-        {"website", "We offer custom website development services starting at $500."},
-        {"ecommerce", "Our e-commerce solutions start at $1000, ideal for growing your online business."},
-        {"maintenance", "We provide website maintenance services to keep your site updated and secure."},
-        {"duration", "A typical website project takes about 4-6 weeks, depending on your specific requirements."},
-        {"support", "We offer ongoing support packages to help you with any issues after your website goes live."},
-        {"technologies", "We specialize in HTML, CSS, JavaScript, and WordPress. Let us know what you need!"}
-    };
+class Chatbot
+{
+public:
+    void start()
+    {
+        cout << "Welcome to the restaurant chatbot!" << endl;
+        cout << "How may I help you today?" << endl;
+        cout << "Type 'exit' to end the conversation." << endl;
+        cout << "--------------------------------------" << endl;
 
-    // Simple case-insensitive matching for responses
-    string query = userQuery;
-    // Transform userQuery to lowercase for matching
-    transform(query.begin(), query.end(), query.begin(), ::tolower);
+        while (true)
+        {
+            string user_input;
+            cout << "User: ";
+            getline(cin, user_input);
 
-    // Check if user query exists in responses
-    auto it = responses.find(query);
-    if (it != responses.end()) {
-        return it->second;
-    } else {
-        // Generic response for unmatched queries
-        return "I'm not sure how to answer that. Can you please specify your query regarding web development?";
-    }
-}
+            if (user_input == "exit")
+            {
+                cout << "Chatbot: Thank you for visiting us! Have a great day!" << endl;
+                break;
+            }
 
-int main() {
-    cout << "Welcome to Our Web Development Services Chatbot" << endl;
-    cout << "Please type your questions about our services. Type 'bye' to exit." << endl;
-
-    string userQuery;
-    while (true) {
-        cout << "User: ";
-        getline(cin, userQuery);
-
-        if (userQuery == "bye") {
-            cout << "Chatbot: Goodbye! We hope to assist you again soon." << endl;
-            break;
+            string response = generate_response(user_input);
+            cout << "Chatbot: " << response << endl;
         }
-
-        string response = getResponse(userQuery);
-        cout << "Chatbot: " << response << endl;
     }
+
+private:
+    string generate_response(string user_input)
+    {
+        if (user_input.find("menu") != string::npos)
+        {
+            return "We have a variety of dishes available. What would you like to order?";
+        }
+        else if (user_input.find("order") != string::npos)
+        {
+            return "Sure! What would you like to order?";
+        }
+        else if (user_input.find("special") != string::npos)
+        {
+            return "Our special dish today is the 'Chef's Special Pasta'. Would you like to try it?";
+        }
+        else if (user_input.find("reservation") != string::npos)
+        {
+            return "Sure! How many people will be joining you?";
+        }
+        else if (user_input.find("thank you") != string::npos)
+        {
+            return "You're welcome! Have a great day!";
+        }
+        else
+        {
+            return "I'm sorry, I didn't understand that. Could you please rephrase?";
+        }
+    }
+};
+
+int main()
+{
+    Chatbot chatbot;
+    chatbot.start();
 
     return 0;
 }
