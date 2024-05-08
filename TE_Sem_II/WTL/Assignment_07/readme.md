@@ -4,16 +4,16 @@ Build a dynamic web application using PHP and MySQL. Create database tables in M
 
 ### Questions
 
-1. What these tags specify in PHP : <?php and ?>
+1. What these tags specify in PHP : <?php and ?><br/>
 Ans: These tags are used to specify the start and end of PHP code. The PHP code is written between these tags.
 
-2. Can we run PHP from HTML file? If yes, how?
+2. Can we run PHP from HTML file? If yes, how?<br/>
 Ans: Yes, we can run PHP from HTML file. We can run PHP from HTML file by saving the file with .php extension.
 
-3. Why PHP is known as scripting language?
+3. Why PHP is known as scripting language?<br/>
 Ans: PHP is known as scripting language because it is a server side language and it is used to write scripts that are executed on the server.
 
-4. Write a program in PHP to calculate Square Root of a number?
+4. Write a program in PHP to calculate Square Root of a number?<br/>
 Ans: Program to calculate Square Root of a number is as follows:
 
     ```php
@@ -24,7 +24,7 @@ Ans: Program to calculate Square Root of a number is as follows:
         ?>
     ```
 
-5. How can we create links in PHP pages?
+5. How can we create links in PHP pages?<br/>
 Ans: We can create links in PHP pages using the following code:
 
     ```php
@@ -33,19 +33,19 @@ Ans: We can create links in PHP pages using the following code:
         ?>
     ```
 
-6. What is the function of “foreach”construct in PHP?
+6. What is the function of “foreach”construct in PHP?<br/>
 Ans: The function of “foreach” construct in PHP is to loop through each key/value pair in an array.
 
-7. What is the purpose of “nl2br “string function?
+7. What is the purpose of “nl2br “string function?<br/>
 Ans: The purpose of “nl2br” string function is to insert HTML line breaks before all newlines in a string.
 
 8. Write the name of PHP functions that can be used to build a function that accepts any number ofarguments?
 Ans: The name of PHP functions that can be used to build a function that accepts any number of arguments are func_get_args() and func_num_args().
 
-9. Whatis the difference between include and require?
+9. Whatis the difference between include and require?<br/>
 Ans: The difference between include and require is that if the file is not found, include will produce a warning and the script will continue to run, while require will produce a fatal error and the script will stop running.
 
-10. Differences between GET and POST methods?
+10. Differences between GET and POST methods?<br/>
 Ans: The differences between GET and POST methods are as follows:
     - GET method is used to send data to the server in the URL, while POST method is used to send data to the server in the body of the request.
     - GET method is not secure as the data is visible in the URL, while POST method is secure as the data is not visible in the URL.
@@ -53,17 +53,17 @@ Ans: The differences between GET and POST methods are as follows:
     - POST method is used when the data is sensitive and should not be visible in the URL, while GET method is used when the data is not sensitive and can be visible in the URL.
     - POST method is used to send data to the server to be processed, while GET method is used to retrieve data from the server.
 
-11. What do you mean by Server Side Scripting?
+11. What do you mean by Server Side Scripting?<br/>
 Ans: Server Side Scripting is a type of scripting that is executed on the server side. It is used to generate dynamic web pages by processing data on the server and sending the output to the client.
 
-12. Explain all possible types of scope of variable?
+12. Explain all possible types of scope of variable?<br/>
 Ans: The possible types of scope of variable are as follows:
     - Local Scope: A variable declared inside a function has local scope and can only be accessed within that function.
     - Global Scope: A variable declared outside a function has global scope and can be accessed anywhere in the script.
     - Static Scope: A static variable retains its value between function calls and has static scope.
     - Parameter Scope: A variable passed as a parameter to a function has parameter scope and can only be accessed within that function.
 
-13. Explain with example the use of substring function?
+13. Explain with example the use of substring function?<br/>
 Ans: The substring function is used to extract a part of a string. It takes two arguments, the string and the starting position of the substring. For example:
 
     ```php
@@ -74,7 +74,7 @@ Ans: The substring function is used to extract a part of a string. It takes two 
         ?>
     ```
 
-14. Write a program in HTML (Web-Page)having a form with firstname, lastname and a submit button. On clicking the button form validation should work (Use Javascript for that) and data entryshould be saved in a database (PHP code needed, for insertion of data from “form” to database). Form should be styled using CSS. (Use any mode-inline, internal or external)?
+14. Write a program in HTML (Web-Page)having a form with firstname, lastname and a submit button. On clicking the button form validation should work (Use Javascript for that) and data entryshould be saved in a database (PHP code needed, for insertion of data from “form” to database). Form should be styled using CSS. (Use any mode-inline, internal or external)?<br/>
 Ans: Program
 
     ```html
@@ -163,20 +163,20 @@ Ans: Program
     ```
 
 15. What do you understand about Numeric array, Associative array and Multidimensional
-array?
+array?<br/>
 Ans: Numeric Array: A numeric array is an array in which the keys are numeric values. The values in a numeric array are accessed using numeric indices.
 
 16. What is the use of strlen() and strpos() functions?
 Ans: The strlen() function is used to get the length of a string. The strpos() function is used to find the position of the first occurrence of a substring in a string.
 
 17. Why we use $_REQUEST variable?Write a note on various library functions available in
-PHP?
+PHP?<br/>
 Ans: The $_REQUEST variable is used to collect data from HTML forms. It is a superglobal variable that can be used to collect data from both the GET and POST methods.
 
-18. Whatisthe function name in PHP, usedto delete an element from an array?
+18. Whatisthe function name in PHP, usedto delete an element from an array?<br/>
 Ans: The function name in PHP used to delete an element from an array is unset().
 
-19. Write the PHP code for fetching the data from a database to a webpage?
+19. Write the PHP code for fetching the data from a database to a webpage?<br/>
 Ans:  PHP code for fetching the data from a database to a webpage is as follows:
 
     ```php
