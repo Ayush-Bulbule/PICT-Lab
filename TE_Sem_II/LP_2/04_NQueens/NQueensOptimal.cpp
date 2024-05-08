@@ -1,4 +1,6 @@
-// Backtracking Approach:
+/**
+ * Problem Statement: Implement N-Queens problem using backtracking and branch and bound.
+ */
 
 #include <cmath>
 #include <iostream>

@@ -1,237 +1,98 @@
-/**
- * Problem Statement: Implement depth first search (DFS) algorithm and breadth first search (BFS) algorithm.
- * Use an application for undirected graph and develop a recursive algorithm for searching all the vertices
- * of a graph or tree data structure. Also print the levels as it traverses for both algorithms.
- * Implement in CPP both ways Iterative and Recursive without using any inbuild stl function or classes
- */
+// BFS and DFS in cpp
 
-// Application: Map of cities
 #include <bits/stdc++.h>
 
 using namespace std;
 
-// Node of the Graph
-class Node {
-  int dest;
-  Node* next;
-
- public:
-  Node() {
-    dest = 0;
-    next = NULL;
-  }
-  Node(int data) {
-    this->dest = data;
-    next = NULL;
-  }
-
-  friend class Graph;
-};
-
 class Graph {
-  string* cities;
-  Node** adjList;
-  int nv;
+    int V;
+    vector<vector<int>> adj;
 
- public:
-  Graph() {
-    cities = NULL;
-    adjList = NULL;
-    nv = 0;
-  }
-
-  Graph(int n) {
-    this->nv = n;
-    adjList = new Node*[n];
-
-    cities = new string[nv];  // to store the names of the cities
-
-    for (int i = 0; i < nv; i++) {
-      adjList[i] = nullptr;  // assign null just to avoid err
-    }
-  }
-  // get Id(index of the city)
-  int getIndex(string city) {
-    for (int i = 0; i < nv; i++) {
-      if (cities[i] == city)
-        return i;
-    }
-    return -1;
-  }
-
-  // add an edge (link between city)
-  void addEdge(int s, int d) {
-    //
-    Node* newNode = new Node(d);
-    newNode->next = adjList[s];
-    adjList[s] = newNode;
-    newNode = new Node(s);
-    newNode->next = adjList[d];
-    adjList[d] = newNode;
-  }
-
-  // Display Graph
-  void dislayGraph() {
-    for (int i = 0; nv; i++) {
-      Node* temp = adjList[i];
-      while (temp) {
-        cout << temp->dest;
-        temp = temp->next;
-      }
-      cout << endl;
-    }
-  }
-
-  // Initialize Map / Network
-  void initMap() {
-    for (int i = 0; i < nv; i++) {
-      cout << "Enter the city no : " << i + 1 << " ";
-      cin >> cities[i];
+   public:
+    Graph(int V) {
+        this->V = V;
+        adj = vector<vector<int>>(V);
     }
 
-    string des;
+    void addEdge(int v, int w) {
+        adj[v].push_back(w);
+    }
 
-    for (int i = 0; i < nv; i++) {
-      for (int j = 0; j < nv - 1; j++) {
-        cout << "Add Cities connected to " << cities[i] << " : ";
-        cin >> des;
-        int srcId = getIndex(cities[i]);
-        int desId = getIndex(des);
+    void BFS(int s) {
+        vector<bool> visited(V, false);  // Track visited
+        queue<int> q;
 
-        if (srcId == -1 || desId == -1) {
-          cout << "Unknown City!" << endl;
-          break;
+        q.push(s);
+        visited[s] = true;
+
+        while (!q.empty()) {
+            int u = q.front();
+            cout << u << " ";
+            q.pop();
+
+            for (int i = 0; i < adj[u].size(); i++) {
+                if (!visited[adj[u][i]]) {
+                    visited[adj[u][i]] = true;
+                    q.push(adj[u][i]);
+                }
+            }
         }
-
-        // finally addEdge
-        addEdge(srcId, desId);
-      }
     }
-  }
 
-  // 1. BFS - (queue)
-  void BFS(int src) {
-    vector<bool> visited(nv, false);
+    void DFS(int s) {
+        vector<bool> visited(V, false);
+        stack<int> st;
+        st.push(s);
+        visited[s] = true;
 
-    queue<int> q;
+        while (!st.empty()) {
+            int u = st.top();
+            cout << u << " ";
+            st.pop();
 
-    // Push src to queue
-    q.push(src);
-
-    // mark src visited
-    visited[src] = true;
-
-    int level = 0;
-    while (!q.empty()) {
-      int size = q.size();
-      int curr = q.front();
-      q.pop();
-      Node* temp = adjList[curr];
-      cout<<cities[curr]<<" ";
-
-      while (temp) {
-        int neighbour = temp->dest;
-        if (!visited[neighbour]) {
-          visited[neighbour] = true;
-          q.push(neighbour);
+            for (int i = 0; i < adj[u].size(); i++) {
+                if (!visited[adj[u][i]]) {
+                    visited[adj[u][i]] = true;
+                    st.push(adj[u][i]);
+                }
+            }
         }
-        temp = temp->next;
-      }
     }
-    cout << endl;
-  }
 
-  // DFS - Depth First Search
-  void DFS(int src) {
-    // visited arr
-    vector<bool> visited(nv, false);
+    // DFS Recursive
+    void DFSUtil(int s, vector<bool> &visited) {
+        visited[s] = true;
+        cout << s << " ";
 
-    stack<int> st;
-
-    // push to stack
-    st.push(src);
-
-    visited[src] = true;
-
-    while (!st.empty()) {
-      int curr = st.top();
-      st.pop();
-
-      cout<<cities[curr]<<" ";
-
-      Node* temp = adjList[curr];
-      while (temp) {
-        int neighbour = temp->dest;
-        if (!visited[neighbour]) {
-          visited[neighbour] = true;
-          st.push(neighbour);
+        for (int i = 0; i < adj[s].size(); i++) {
+            if (!visited[adj[s][i]]) {
+                DFSUtil(adj[s][i], visited);
+            }
         }
-        temp = temp->next;
-      }
     }
-
-    cout << endl;
-  }
 };
 
+int main() {
+    Graph g(4);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 2);
+    g.addEdge(2, 0);
+    g.addEdge(2, 3);
+    g.addEdge(3, 3);
 
-int main(){
-    cout<<"BFS - DFS "<<endl;
+    cout << "BFS: ";
+    g.BFS(2);
+    cout << endl;
 
-    int nv;
-    cout<<"Enter total no of cities: "<<endl;
-    cin>>nv;
+    cout << "DFS: ";
+    g.DFS(2);
+    cout << endl;
 
-
-    Graph *g = new Graph(nv);
-
-    bool loop =true;
-    int op, srcId;
-    string src;
-    while(loop){
-        int ch;
-
-        cout << "\n1.Add Nodes\n2.Print Graph\n3.BFS Traversal\n4.DFS "
-                "Traversal\n5.Exit..."
-             << endl;
-        cout << "Enter Your Choice: " << endl;
-        cin >> ch;
-
-        switch (ch)
-        {
-        case 1:
-            g->initMap();
-            break;
-        case 2:
-            cout << "Graph - " << endl;
-            g->dislayGraph();
-            break;
-        case 3:
-            cout << "BFS Traversal" << endl;
-            cout << "Enter source: " << endl;
-            cin >> src;
-            srcId = g->getIndex(src);
-            g->BFS(srcId);
-
-            // g->bfs(data);
-            break;
-        case 4:
-            cout << "DFS Traversal" << endl;
-            cout << "Enter source: " << endl;
-            cin >> src;
-
-            srcId = g->getIndex(src);
-            g->DFS(srcId);
-            break;
-        case 5:
-            cout << "Exiting....." << endl;
-            loop = false;
-            break;
-        default:
-            cout << "Wrong Input!" << endl;
-            break;
-        }
-    }
+    cout << "DFS Recursive: ";
+    vector<bool> visited(4, false);
+    g.DFSUtil(2, visited);
+    cout << endl;
 
     return 0;
 }

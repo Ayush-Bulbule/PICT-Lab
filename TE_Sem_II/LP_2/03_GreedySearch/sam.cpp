@@ -5,13 +5,13 @@
  *
  * Selected: Minimum spanning tree using prims algorithm
  */
-
 #include <bits/stdc++.h>
+
 using namespace std;
 
 class Graph {
-    int nv;                           // Number of vertices
-    vector<pair<int, int>> *adjList;  // Adjacency list e.g. {vertex, weight}
+    int nv;
+    vector<pair<int, int>> *adjList;
 
    public:
     Graph(int nv) {
@@ -19,20 +19,24 @@ class Graph {
         adjList = new vector<pair<int, int>>[nv];
     }
 
+    // add the eedge
     void addEdge(int src, int des, int weight) {
         adjList[src].push_back({des, weight});
-        adjList[des].push_back({src, weight});  // For undirected graph
+        adjList[des].push_back({src, weight});
     }
 
+    // prims
     void primsMST(int start) {
-        vector<int> parent(nv, -1);      // To store the parent of each vertex
-        vector<int> key(nv, INT_MAX);    // To store the weight of each vertex
-        vector<bool> mstSet(nv, false);  // To store the vertices that are already included in MST
+        // Create an priority queue for head
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
 
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;  // Min heap to store the vertices
+        // create a vector to store the distance of each vertex from the source
+        vector<int> key(nv, INT_MAX);
+        vector<int> parent(nv, -1);
+        vector<bool> mstSet(nv, false);
 
-        key[start] = 0;       // Start with the first vertex
-        pq.push({0, start});  // Push the first vertex to the priority queue
+        key[start] = 0;  // initially zero weight
+        pq.push({0, start});
 
         while (!pq.empty()) {
             int u = pq.top().second;
@@ -42,26 +46,26 @@ class Graph {
 
             for (auto i : adjList[u]) {
                 int v = i.first;
+
                 int weight = i.second;
 
+                // if the vertex is not included in the mst and the weight is less than the key of the vertex
                 if (mstSet[v] == false && weight < key[v]) {
+                    //
                     parent[v] = u;
                     key[v] = weight;
+
                     pq.push({key[v], v});
                 }
             }
         }
 
+        // print
+        int sum = 0;
         for (int i = 1; i < nv; i++) {
-            cout << parent[i] << " - " << i << " : " << key[i] << endl;
+            cout << parent[i] << "  -  " << i << "  " << key[i] << endl;
+            sum += key[i];
         }
-
-        // total weight of MST
-        int totalWeight = 0;
-        for (int i = 1; i < nv; i++) {
-            totalWeight += key[i];
-        }
-        cout << "Total weight of MST: " << totalWeight << endl;
     }
 };
 
