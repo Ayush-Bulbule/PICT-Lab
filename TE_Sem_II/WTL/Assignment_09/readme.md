@@ -80,7 +80,7 @@ Ans: AngularJS is used to develop dynamic web applications that require rich use
 
 20. What are different ways to invoke a directive?
 Ans: Directives in AngularJS can be invoked in different ways:
-    - Element: Directives can be invoked as elements in the HTML code, such as <my-directive></my-directive>.
-    - Attribute: Directives can be invoked as attributes in the HTML code, such as <div my-directive></div>.
-    - Class: Directives can be invoked as classes in the HTML code, such as <div class="my-directive"></div>.
+    - Element: Directives can be invoked as elements in the HTML code, such as `<my-directive></my-directive>`.
+    - Attribute: Directives can be invoked as attributes in the HTML code, such as `<div my-directive></div>`.
+    - Class: Directives can be invoked as classes in the HTML code, such as `<div class="my-directive"></div>`.
     - Comment: Directives can be invoked as comments in the HTML code, such as <!-- directive: my-directive -->.
