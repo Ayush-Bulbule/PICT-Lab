@@ -1,32 +1,41 @@
-#include<bits/stdc++.h>
+/**
+ * Problem Statement: Write a program non-recursive and recursive program to calculate Fibonacci
+ * numbers andanalyze their time and space complexity
+*/
 
+#include<bits/stdc++.h>
 using namespace std;
 
-int fibonacciIterative(int n) {
-    if (n <= 1)
-        return n;
-    int a = 0, b = 1, fib = 0;
-    for (int i = 2; i <= n; i++) {
-        fib = a + b;
+// Recursive Fibonacci
+int fibonacci_recurtsive(int n){
+    if(n<=1) return n;
+    return fibonacci_recurtsive(n - 1) + fibonacci_recurtsive(n - 2);
+}
+
+// Iterative Fibonacci
+int fibonacci_iterative(int n){
+    if(n<=1) return n;
+
+    int a = 0, b = 1,fib;
+
+    for(int i = 2;i<=n;i++){
+        fib = a+b;
         a = b;
         b = fib;
     }
     return fib;
 }
 
-int fibonacciRecursive(int n) {
-    if (n <= 1)
-        return n;
-    return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
-}
-
 
 int main(){
-
     int n;
-    cout << "Enter n: ";
-    cin >> n;
-    cout << "Fibonacci number (Recursive): " << fibonacciRecursive(n) << endl;
-    cout << "Fibonacci number (Iterative): " << fibonacciIterative(n) << endl;
 
+    cout<<"Enter a Number: ";
+    cin>>n;
+
+    cout<<"Fibonacci Recursive: "<<fibonacci_recurtsive(n)<<endl;
+    cout<<"Fibonacci Iterative: "<<fibonacci_iterative(n)<<endl;
+
+    return 0;
 }
+

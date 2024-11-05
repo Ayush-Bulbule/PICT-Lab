@@ -1,81 +1,81 @@
-#include <iostream>
-#include <queue>
-#include <vector>
-#include <unordered_map>
+/**
+ * Problem Statement: Write a program to implement Huffman Encoding using a greedy strategy.
+ * Must Watch: https://youtu.be/uDS8AkTAcIU?si=J79pJbEHLW588mcA
+ */
+  
 
+#include<bits/stdc++.h>
 using namespace std;
 
-// Node for Huffman Tree
-struct HuffmanNode {
-    char data;
-    int freq;
-    HuffmanNode* left;
-    HuffmanNode* right;
+struct MinHeapNode{
+    char data;  // character
+    int freq;  // freuency of the character
+    MinHeapNode *left, *right; 
 
-    HuffmanNode(char data, int freq) {
+
+    MinHeapNode(char data, int freq){
         left = right = nullptr;
         this->data = data;
         this->freq = freq;
     }
 };
 
-// Comparison object for priority queue (min-heap)
 struct compare {
-    bool operator()(HuffmanNode* left, HuffmanNode* right) {
-        return left->freq > right->freq;
+    bool operator()(struct MinHeapNode* left, MinHeapNode* right){
+        return (left->freq > right->freq);
     }
 };
 
-// Function to print the Huffman codes
-void printHuffmanCodes(HuffmanNode* root, string str) {
-    if (!root) return;
+// Function to print HuffMan Tree() (hint: preorder)
+void printCodes(struct MinHeapNode* root, string code){
+    if(!root)
+        return;
 
-    if (root->data != '$')  // '$' is a special marker for internal nodes
-        cout << root->data << ": " << str << "\n";
-
-    printHuffmanCodes(root->left, str + "0");
-    printHuffmanCodes(root->right, str + "1");
+    // if node is a leaf node then only print the character
+    if(!root->left && !root->right)
+        cout<< root->data<<" : "<<code<<"\n"<<endl;
+    
+    // traverse left and right subtrees with added code "0" and "1" imp. step to get correct code
+    printCodes(root->left, code+"0");
+    printCodes(root->right, code+"1");
 }
 
-// Function to implement Huffman Encoding
-void huffmanEncoding(char data[], int freq[], int size) {
-    // Create a min-heap (priority queue)
-    priority_queue<HuffmanNode*, vector<HuffmanNode*>, compare> minHeap;
+// Build Huffman Tree
+void HuffmanCodes(vector<char> &data, vector<int>& freq){
+    int n = data.size();
 
-    // Create leaf nodes for each character and push into minHeap
-    for (int i = 0; i < size; i++)
-        minHeap.push(new HuffmanNode(data[i], freq[i]));
+    // create a min heap(priority queue)
+    priority_queue<MinHeapNode*, vector<MinHeapNode*>, compare> minHeap;
 
-    // Iterate until heap has only one node (root of Huffman Tree)
-    while (minHeap.size() != 1) {
-        // Extract two nodes with minimum frequency
-        HuffmanNode* left = minHeap.top();
-        minHeap.pop();
-        HuffmanNode* right = minHeap.top();
-        minHeap.pop();
+    for(int i =0;i<n;i++){
+        minHeap.push(new MinHeapNode(data[i], freq[i]));
+    }
 
-        // Create a new internal node with frequency equal to the sum of two nodes
-        HuffmanNode* top = new HuffmanNode('$', left->freq + right->freq);
+    // Iterate until the heap contains only one node (root of the Huffman Tree)
+    while(minHeap.size() != 1){
+        MinHeapNode *left = minHeap.top(); minHeap.pop();
+        MinHeapNode *right = minHeap.top(); minHeap.pop();
+
+        MinHeapNode *top = new MinHeapNode('$', left->freq+right->freq);
+
         top->left = left;
         top->right = right;
 
-        // Add this node to the min-heap
         minHeap.push(top);
     }
 
-    // Print Huffman codes (root node is in minHeap)
-    printHuffmanCodes(minHeap.top(), "");
+    // Print Huffman Codes using the tree built above
+    printCodes(minHeap.top(), "");
 }
 
-int main() {
-    // Sample data
-    char data[] = {'a', 'b', 'c', 'd', 'e', 'f'};
-    int freq[] = {5, 9, 12, 13, 16, 45};
 
-    int size = sizeof(data) / sizeof(data[0]);
+int main(){
 
-    huffmanEncoding(data, freq, size);
+    vector<char> data = {'a', 'b', 'c', 'd', 'e', 'f'};
+    vector<int> freq = {5, 9, 12, 13, 16, 45};
+
+    cout << "Huffman Codes:\n";
+    HuffmanCodes(data, freq);
 
     return 0;
 }
-//chatgpt

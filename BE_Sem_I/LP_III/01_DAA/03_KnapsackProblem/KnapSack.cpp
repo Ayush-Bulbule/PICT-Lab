@@ -1,61 +1,38 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+/**
+ * Problem Statement: Write a program to solve a 0-1 Knapsack problem using dynamic programming 
+ * or branch andbound strategy.
+ */
 
+#include <bits/stdc++.h>
 using namespace std;
 
-// Structure to represent an item with value and weight
-struct Item {
-    int value, weight;
+int knapsack(int capacity, const vector<int>& weights, const vector<int>& values, int n) {
     
-    // Constructor
-    Item(int value, int weight) {
-        this->value = value;
-        this->weight = weight;
-    }
-};
+    vector<vector<int>> dp(n + 1, vector<int>(capacity + 1, 0)); // table
 
-// Comparison function to sort items based on value/weight ratio
-bool compare(Item a, Item b) {
-    double r1 = (double)a.value / a.weight;
-    double r2 = (double)b.value / b.weight;
-    return r1 > r2;  // Sort by decreasing ratio
-}
-
-// Function to calculate maximum value for fractional knapsack
-double fractionalKnapsack(int W, vector<Item>& items) {
-    // Sort items by value/weight ratio
-    sort(items.begin(), items.end(), compare);
-
-    double totalValue = 0.0;  // Total value accumulated
-    int curWeight = 0;        // Current weight in the knapsack
-
-    for (auto item : items) {
-        if (curWeight + item.weight <= W) {
-            // Add the entire item to the knapsack
-            curWeight += item.weight;
-            totalValue += item.value;
-        } else {
-            // Add fractional part of the item
-            int remain = W - curWeight;
-            totalValue += item.value * ((double)remain / item.weight);
-            break;
+    // Build the DP table in bottom-up manner
+    for (int i = 1; i <= n; i++) {
+        for (int w = 1; w <= capacity; w++) {
+            if (weights[i - 1] <= w) {
+                dp[i][w] = max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]]);
+            } else {
+                dp[i][w] = dp[i - 1][w];
+            }
         }
     }
 
-    return totalValue;
+    return dp[n][capacity];
 }
 
 int main() {
-    int W = 50;  // Knapsack capacity
+    int n = 4;
+    int capacity = 9;
+    vector<int> weights = {2, 3, 4, 5};
+    vector<int> values = {3, 4, 5, 6};
 
-    // List of items: {value, weight}
-    vector<Item> items = { {60, 10}, {100, 20}, {120, 30} };
+    int max_value = knapsack(capacity, weights, values, n);
 
-    // Calculate maximum value
-    double maxValue = fractionalKnapsack(W, items);
-
-    cout << "Maximum value in Knapsack: " << maxValue << endl;
+    cout << "The maximum value that can be obtained is: " << max_value << endl;
 
     return 0;
 }
