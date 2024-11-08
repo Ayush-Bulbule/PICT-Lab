@@ -116,3 +116,50 @@ The **Activity Diagrams** effectively represent the **business flows** for both 
 
 ### **Conclusion**
 This practical demonstrates the importance of **Activity Diagrams** in visualizing and understanding business processes. By using decision points and parallel flows, we can model complex workflows efficiently. These diagrams are crucial for designing and analyzing business and system processes.
+
+
+### **Review Questions**
+Here are answers for the review questions:
+
+---
+
+**Q1. What are the elements of a use case diagram?**  
+**A:** The main elements of a **use case diagram** are:
+- **Actors**: Represent users or systems that interact with the system.
+- **Use Cases**: Describe the functionalities or services the system provides.
+- **Relationships**: Shows how actors and use cases are connected, including association, include, extend, and generalization.
+- **System Boundary**: Defines the scope of the system.
+
+---
+
+**Q2. What are static and behavior diagrams?**  
+**A:** **Static diagrams** show the structure of a system, such as **Class Diagrams** and **Component Diagrams**. They represent relationships and dependencies but don’t capture dynamic behavior.  
+**Behavior diagrams** illustrate the dynamic aspects of a system, showing **how it behaves over time** (e.g., **Use Case Diagrams, Activity Diagrams, Sequence Diagrams**).
+
+---
+
+**Q3. Which relationships are used in a use case diagram?**  
+**A:** Relationships in a **use case diagram** include:
+- **Association**: Link between actors and use cases.
+- **Include**: Shows that a use case includes the behavior of another use case.
+- **Extend**: Adds optional behavior to a use case.
+- **Generalization**: Defines inheritance between actors or use cases.
+
+---
+
+**Q4. How are use cases and actors organized?**  
+**A:** **Actors** and **use cases** are organized by:
+- Identifying **actors** as external entities that interact with the system.
+- Placing **use cases** within the system boundary to show services provided by the system.
+- Using relationships to illustrate how actors interact with each use case.
+
+---
+
+**Q5. How to describe a use case?**  
+**A:** To describe a **use case**:
+- **Name** the use case clearly.
+- Define the **Actor(s)** involved.
+- Write a **Brief Description** summarizing the use case’s purpose.
+- Detail **Preconditions** and **Postconditions** to specify the required system state before and after the use case.
+- List the **Main Flow** and **Alternative Flows** (steps) for each scenario.
+
