@@ -33,27 +33,8 @@ Below is an example of how a **Library Management System** can be represented us
 
 **Use Case Diagram Representation**:
 
-```
-+-------------------------------------------------+
-|                Library Management System        |
-|                                                 |
-|  +----------------------+   +----------------+  |
-|  |    Library Member    |   |    Librarian   |  |
-|  |----------------------|   |----------------|  |
-|  |  - Borrow Book       |   |  - Add Book    |  |
-|  |  - Return Book       |   |  - Remove Book |  |
-|  +----------------------+   |  - Register    |  |
-|           |                 +----------------+  |
-|           |                                    |
-|           +------------------------------------+
-|                     System                    |
-+-------------------------------------------------+
-```
-
 ![image](https://github.com/user-attachments/assets/aa9557ce-6699-4995-be33-83bc8fc383b0)
 
-
-**Note**
 
 #### **Use Case Templates**:
 Each use case must be detailed with its description and steps:
