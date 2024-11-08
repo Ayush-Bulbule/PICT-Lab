@@ -43,6 +43,7 @@ python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
 ```
 
 ### Project Structure
+<img width="511" alt="Screenshot 2024-11-08 at 10 13 30" src="https://github.com/user-attachments/assets/1b262666-4a45-424a-81da-f2b056c8f732">
 ```
 fake-news-detection/
 │
