@@ -96,13 +96,9 @@ This diagram effectively shows:
 - System boundaries and interactions
 - Sequential flow of activities
 
-Would you like me to:
-1. Explain any specific part in more detail?
-2. Compare this with other types of activity diagrams?
-3. Discuss best practices for designing such diagrams?
-4. Explain how this could be modified or extended?
 
 **Activity Diagram Representation**:
+
 ![image](https://github.com/user-attachments/assets/839d4b31-348a-42eb-8c20-5c32b717baa9)
 
 
