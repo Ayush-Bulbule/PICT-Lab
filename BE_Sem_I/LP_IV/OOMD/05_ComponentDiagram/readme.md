@@ -86,7 +86,8 @@ In this example, we design a **Component Diagram** for an **E-Commerce System**,
 - **New Components**: **Order Processing** and **Shipment Management** are newly designed to meet specific business requirements.
 
 ---
-**Example:**
+**Example: Online Shopping System**
+
 ![image](https://github.com/user-attachments/assets/4bde5ef5-7336-409b-92f3-a787b7ef9de4)
 
 
