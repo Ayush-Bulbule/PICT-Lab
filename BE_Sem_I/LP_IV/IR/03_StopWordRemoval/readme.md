@@ -54,6 +54,27 @@ POS tagging assigns labels to each word based on its part of speech (e.g., noun,
 3. Return the list of tokens.
 4. Print the tokenized text for further processing.
 
+
+```python
+# Importing the necessary library
+import nltk
+from nltk.tokenize import word_tokenize
+
+# Download required NLTK data files (only the first time)
+nltk.download('punkt')
+
+# Define the text to be tokenized
+text = "This is an example sentence. Tokenize this text into words."
+
+# Tokenize the text into words
+tokens = word_tokenize(text)
+
+# Display the tokenized words
+print("Tokens:", tokens)
+
+
+```
+
 ### **Test Cases**
 
 1. **Input**: `"This is an example sentence."`  
