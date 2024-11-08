@@ -56,7 +56,6 @@ In this example, we design a **Component Diagram** for an **E-Commerce System**,
 ```
 
 #### **Explanation of Components and Relationships**:
-
 1. **Product Catalog**:
    - **Reused Component**: Handles product listing, pricing, and descriptions.
    - **Interfaces with**: User Authentication (for logged-in users to see personalized products).
@@ -87,13 +86,13 @@ In this example, we design a **Component Diagram** for an **E-Commerce System**,
 - **New Components**: **Order Processing** and **Shipment Management** are newly designed to meet specific business requirements.
 
 ---
+**Example:**
+![image](https://github.com/user-attachments/assets/4bde5ef5-7336-409b-92f3-a787b7ef9de4)
+
+
 
 ### **Results**
 The **Component Diagram** effectively represents the structure of an **E-Commerce System** by illustrating the relationships between existing reusable components and newly introduced components. It showcases how each component interacts and depends on others.
 
 ### **Conclusion**
 This practical demonstrates the importance of **Component Diagrams** in visualizing system architecture, particularly when combining **existing reusable components** with **newly designed ones**. It helps in better understanding the system’s modular structure and dependencies, which is crucial for scalability and maintainability.
-
----
-
-You can adjust the **Component Diagram** and **explanation** based on your specific system and component choices.
