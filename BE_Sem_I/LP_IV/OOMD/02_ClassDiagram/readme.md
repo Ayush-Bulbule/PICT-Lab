@@ -67,6 +67,9 @@ Here is an example of how the **Library Management System** might be structured 
 - **Association**: Library has many Books and Members (denoted by lines connecting classes).
 - **Generalization (Inheritance)**: Librarian is a subclass of Member (denoted by an arrow pointing from Librarian to Member).
 
+![img](https://github.com/user-attachments/assets/cc072cd8-17aa-463d-8444-d94190f45f4c)
+
+
 ### **Code Implementation**
 Here’s a simplified Java implementation based on the above diagram:
 
@@ -127,7 +130,3 @@ The class diagram accurately represents the key objects in the **Library Managem
 
 ### **Conclusion**
 This practical reinforced the ability to design class diagrams and identify relationships between objects. By analyzing key concepts like classes, methods, and inheritance, we were able to effectively represent the system's structure.
-
----
-
-Adjust the **Class Diagram** and **code** based on your specific system and requirements.
