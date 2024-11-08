@@ -50,8 +50,8 @@ Below is an example of how a **Library Management System** can be represented us
 +-------------------------------------------------+
 ```
 
+![image](https://github.com/user-attachments/assets/aa9557ce-6699-4995-be33-83bc8fc383b0)
 
-![svgviewer-png-output](https://github.com/user-attachments/assets/f18acecf-fb07-4ff3-9f84-ce01bb1584b3)
 
 **Note**
 
