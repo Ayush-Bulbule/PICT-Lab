@@ -1,3 +1,9 @@
+To format this content properly in a GitHub README.md file, you can use Markdown syntax with LaTeX for mathematical formulas. GitHub markdown does not directly support LaTeX math rendering, but you can make the formulas clearer by formatting them as inline code or using backticks for better readability.
+
+Here’s how you can format it to display clearly in a GitHub README:
+
+---
+
 ### **Similarity of Documents - Extended Theory**
 
 **Document Similarity** refers to the process of determining how similar two documents are, based on their content. It is widely used in Information Retrieval, Natural Language Processing (NLP), and in search engines to measure how closely a document matches a query or another document.
@@ -14,32 +20,32 @@ There are various methods to measure the similarity between documents, with the 
 
 2. **Cosine Similarity**:
    - **Formula**: 
-     \[
-     \text{cosine similarity} = \frac{A \cdot B}{\|A\| \|B\|}
-     \]
+     ```
+     cosine similarity = (A · B) / (||A|| ||B||)
+     ```
      Where:
-     - \( A \) and \( B \) are two document vectors.
-     - \( A \cdot B \) is the dot product of vectors A and B.
-     - \( \|A\| \) and \( \|B\| \) are the magnitudes (norms) of vectors A and B.
+     - `A` and `B` are two document vectors.
+     - `A · B` is the dot product of vectors `A` and `B`.
+     - `||A||` and `||B||` are the magnitudes (norms) of vectors `A` and `B`.
 
 3. **TF-IDF** (Term Frequency-Inverse Document Frequency):
    - This is a weighting factor used to evaluate how important a word is to a document relative to the entire corpus.
    - **Formula**:
-     \[
-     \text{TF-IDF}(t,d) = \text{TF}(t,d) \times \log\left(\frac{N}{\text{DF}(t)}\right)
-     \]
+     ```
+     TF-IDF(t, d) = TF(t, d) * log(N / DF(t))
+     ```
      Where:
-     - \( \text{TF}(t,d) \) is the term frequency of term \( t \) in document \( d \).
-     - \( N \) is the total number of documents.
-     - \( \text{DF}(t) \) is the number of documents containing term \( t \).
+     - `TF(t, d)` is the term frequency of term `t` in document `d`.
+     - `N` is the total number of documents.
+     - `DF(t)` is the number of documents containing term `t`.
 
 4. **Jaccard Similarity**:
    - Measures the similarity between two sets by dividing the size of their intersection by the size of their union.
    - **Formula**:
-     \[
-     \text{Jaccard Similarity} = \frac{|A \cap B|}{|A \cup B|}
-     \]
-     Where \( A \) and \( B \) are the sets of words in two documents.
+     ```
+     Jaccard Similarity = |A ∩ B| / |A ∪ B|
+     ```
+     Where `A` and `B` are the sets of words in two documents.
 
 ### **Steps in Calculating Document Similarity**:
 
@@ -69,7 +75,7 @@ There are various methods to measure the similarity between documents, with the 
 
 Consider two documents:
 
-**Document 1**: "Information retrieval is the process of finding relevant documents."
+**Document 1**: "Information retrieval is the process of finding relevant documents."  
 **Document 2**: "Retrieval of information from a collection of documents is essential."
 
 #### **Step 1: Tokenization**:
@@ -95,5 +101,3 @@ Consider two documents:
 8. **In what scenarios would you prefer using Jaccard similarity over cosine similarity?**
 9. **How would the similarity score change if the two documents were very different in terms of vocabulary?**
 10. **How can document similarity be applied in real-world systems like search engines or recommendation systems?**
-
-This extended theory, along with the review questions, will help you gain a deeper understanding of the **Similarity of Documents** assignment and how it is applied in various fields like search engines, document clustering, and text analysis.
