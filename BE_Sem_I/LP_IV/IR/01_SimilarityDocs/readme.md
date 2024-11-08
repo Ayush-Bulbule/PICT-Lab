@@ -1,9 +1,3 @@
-To format this content properly in a GitHub README.md file, you can use Markdown syntax with LaTeX for mathematical formulas. GitHub markdown does not directly support LaTeX math rendering, but you can make the formulas clearer by formatting them as inline code or using backticks for better readability.
-
-Here’s how you can format it to display clearly in a GitHub README:
-
----
-
 ### **Similarity of Documents - Extended Theory**
 
 **Document Similarity** refers to the process of determining how similar two documents are, based on their content. It is widely used in Information Retrieval, Natural Language Processing (NLP), and in search engines to measure how closely a document matches a query or another document.
@@ -92,12 +86,31 @@ Consider two documents:
 ### **Review Questions**
 
 1. **What is document similarity, and why is it important in information retrieval systems?**
-2. **Explain how cosine similarity is calculated and why it's used for measuring document similarity.**
+   - Document similarity quantifies how alike two documents are, aiding search engines and recommendation systems in finding relevant content for user queries.
+
+2. **Explain how cosine similarity is calculated and why it’s used for measuring document similarity.**
+   - Cosine similarity calculates the cosine of the angle between two document vectors, giving a value between 0 and 1; it's widely used as it normalizes for document length.
+
 3. **What is TF-IDF, and how does it help in determining the importance of a term in a document?**
+   - TF-IDF (Term Frequency-Inverse Document Frequency) measures term importance by accounting for term frequency in a document and rarity across the corpus, highlighting unique words.
+
 4. **Describe the difference between cosine similarity and Jaccard similarity.**
+   - Cosine similarity is vector-based, accounting for term frequency, while Jaccard similarity is set-based, only considering the presence or absence of terms.
+
 5. **Why is it important to preprocess text before calculating document similarity?**
+   - Preprocessing (like tokenization and stop-word removal) standardizes text, reducing noise and improving the accuracy of similarity calculations.
+
 6. **How does tokenization affect the similarity calculation between documents?**
+   - Tokenization breaks text into words or terms, forming the base for vectorization and accurately capturing document content for similarity measurement.
+
 7. **What are the advantages of using TF-IDF over simple term frequency for document similarity?**
+   - TF-IDF highlights important terms by reducing the weight of common words, improving the distinction between documents with unique content.
+
 8. **In what scenarios would you prefer using Jaccard similarity over cosine similarity?**
+   - Jaccard similarity is preferred for sets with unique items, like short documents or tags, where only the presence of terms matters, not frequency.
+
 9. **How would the similarity score change if the two documents were very different in terms of vocabulary?**
+   - If documents have little vocabulary overlap, the similarity score (cosine or Jaccard) will be low, indicating dissimilar content.
+
 10. **How can document similarity be applied in real-world systems like search engines or recommendation systems?**
+    - Document similarity helps in matching user queries to relevant results in search engines and clustering related content in recommendation systems.
