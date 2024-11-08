@@ -50,6 +50,11 @@ Below is an example of how a **Library Management System** can be represented us
 +-------------------------------------------------+
 ```
 
+
+![svgviewer-png-output](https://github.com/user-attachments/assets/f18acecf-fb07-4ff3-9f84-ce01bb1584b3)
+
+**Note**
+
 #### **Use Case Templates**:
 Each use case must be detailed with its description and steps:
 
