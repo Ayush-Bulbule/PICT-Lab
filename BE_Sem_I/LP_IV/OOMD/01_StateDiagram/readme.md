@@ -30,6 +30,7 @@ A **State Model** represents the various states of an object and transitions bet
 
 ![The-telephone-system-state-machine-diagram](https://github.com/user-attachments/assets/9d3e248d-9b90-49c1-b1a5-e9caf87acf4d)
 
+![01_TelephoneState](https://github.com/user-attachments/assets/800489c3-43dd-4b2a-b384-f18157199c50)
 
 ### **Code Implementation**
 For this model, a simplified version might involve handling state transitions using a state machine. Below is an example of a basic state transition structure in Java:
