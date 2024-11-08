@@ -28,7 +28,8 @@ A **State Model** represents the various states of an object and transitions bet
   - From **Talking** → **On-hook** (call ends and receiver is hung up).
   - From **On-hook** → **Idle** (telephone line returns to idle state).
 
-![State Model Diagram](link_to_image)
+![The-telephone-system-state-machine-diagram](https://github.com/user-attachments/assets/9d3e248d-9b90-49c1-b1a5-e9caf87acf4d)
+
 
 ### **Code Implementation**
 For this model, a simplified version might involve handling state transitions using a state machine. Below is an example of a basic state transition structure in Java:
